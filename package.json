@@ -1,0 +1,30 @@
+{
+  "name": "darx",
+  "version": "0.0.1",
+  "description": "Shop",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/denisoed/darx.git"
+  },
+  "keywords": [
+    "MongoDB",
+    "ExpressJS",
+    "Angular2",
+    "NodeJS"
+  ],
+  "author": "Denisoed",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/denisoed/darx/issues"
+  },
+  "homepage": "https://github.com/denisoed/darx#readme",
+  "dependencies": {
+    "crypto": "^1.0.1",
+    "express": "^4.15.4",
+    "mongoose": "^4.11.7"
+  }
+}
