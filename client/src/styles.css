@@ -1,1 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+
+/* Fonts */
+
+@font-face {
+    font-family: 'CaviarDreams';
+    src: url('/assets/fonts/CaviarDreams/CaviarDreams.eot');
+    src: url('/assets/fonts/CaviarDreams/CaviarDreams.eot') format('embedded-opentype'), url('/assets/fonts/CaviarDreams/CaviarDreams.woff2') format('woff2'), url('/assets/fonts/CaviarDreams/CaviarDreams.woff') format('woff'), url('/assets/fonts/CaviarDreams/CaviarDreams.ttf') format('truetype'), url('/assets/fonts/CaviarDreams/CaviarDreams.svg#CaviarDreams') format('svg');
+}
+
+@font-face {
+    font-family: 'MuseoSansCyrl_0';
+    src: url('/assets/fonts/MuseoSansCyrl_0/MuseoSansCyrl_0.eot');
+    src: url('/assets/fonts/MuseoSansCyrl_0/MuseoSansCyrl_0.eot') format('embedded-opentype'), url('/assets/fonts/MuseoSansCyrl_0/MuseoSansCyrl_0.woff2') format('woff2'), url('/assets/fonts/MuseoSansCyrl_0/MuseoSansCyrl_0.woff') format('woff'), url('/assets/fonts/MuseoSansCyrl_0/MuseoSansCyrl_0.ttf') format('truetype'), url('/assets/fonts/MuseoSansCyrl_0/MuseoSansCyrl_0.svg#MuseoSansCyrl_0') format('svg');
+}
