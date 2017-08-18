@@ -1,0 +1,231 @@
+footer {
+    background-color: #1b1b1c;
+}
+
+
+/* Style for social icons */
+
+footer .f-social-icons {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+    margin-top: -42px;
+}
+
+footer .f-social-icons a {
+    background-color: #222223;
+    opacity: 0.8;
+    padding: 40px;
+    border-radius: 100%;
+    position: relative;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.5);
+    margin: 0 20px;
+}
+
+footer .f-social-icons a::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    box-shadow: inset 0px 1px 2px 0px rgba(255, 255, 255, 0.2);
+    border-radius: 100%;
+}
+
+footer .f-social-icons .fa {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    color: #777777;
+    transform: translate(-50%, -50%);
+    font-size: 42px;
+}
+
+
+/* Main stile for title of blocks */
+
+footer h4 {
+    color: #bababa;
+    font-size: 18px;
+    font-family: 'CaviarDreams', sans-serif;
+    position: relative;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 22px;
+}
+
+footer h4::before {
+    content: '';
+    width: 55px;
+    height: 1px;
+    background-color: #323233;
+    display: inline-block;
+    margin-right: 20px;
+    margin-bottom: 6px;
+}
+
+footer h4::after {
+    content: '';
+    width: 55px;
+    height: 1px;
+    background-color: #323233;
+    display: inline-block;
+    margin-left: 20px;
+    margin-bottom: 6px;
+}
+
+
+/* Style for Flickr strean */
+
+footer .stream-imgs {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+footer .s-img {
+    width: 90px;
+    height: 80px;
+    background-position: center;
+    background-size: cover;
+    border: 6px solid #272727;
+    margin: 1px;
+}
+
+
+/* Style for Popular posts */
+
+footer .post {
+    display: flex;
+    align-items: center;
+}
+
+footer .p-img {
+    min-width: 100px;
+    height: 80px;
+    background-position: center;
+    background-size: cover;
+    border: 6px solid #272727;
+    margin: 1px;
+}
+
+footer .p-info {
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+footer .p-title {
+    font-size: 14px;
+    font-family: 'MuseoSansCyrl_0', sans-serif;
+    color: #c5c5c5;
+    margin-bottom: 12px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+footer .p-comment {
+    color: #777;
+    text-transform: uppercase;
+    font-family: 'MuseoSansCyrl_0', sans-serif;
+    font-size: 12px;
+    text-decoration: none;
+}
+
+
+/* Style for subscribe */
+
+footer .f-form {
+    width: 270px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+footer .f-form input {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    background-color: #272727;
+    margin-bottom: 10px;
+    color: #c3c2c2;
+    font-family: 'MuseoSansCyrl_0', sans-serif;
+    font-size: 14px;
+}
+
+footer .f-form input::-webkit-input-placeholder {
+    /* Chrome/Opera/Safari */
+    font-family: 'MuseoSansCyrl_0', sans-serif;
+    font-size: 14px;
+    color: #c3c2c2;
+}
+
+footer .f-form input::-moz-placeholder {
+    /* Firefox 19+ */
+    font-family: 'MuseoSansCyrl_0', sans-serif;
+    font-size: 14px;
+    color: #c3c2c2;
+}
+
+footer .f-form input:-ms-input-placeholder {
+    /* IE 10+ */
+    font-family: 'MuseoSansCyrl_0', sans-serif;
+    font-size: 14px;
+    color: #c3c2c2;
+}
+
+footer .f-form input:-moz-placeholder {
+    /* Firefox 18- */
+    font-family: 'MuseoSansCyrl_0', sans-serif;
+    font-size: 14px;
+    color: #c3c2c2;
+}
+
+footer .f-form button {
+    border: none;
+    padding: 12px;
+    color: #c3c2c2;
+    background-color: #272727;
+    align-self: flex-end;
+    font-family: 'MuseoSansCyrl_0', sans-serif;
+    font-size: 14px;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+
+/* Style for footer bootom line */
+
+footer .footer-bottom-line {
+    width: 100%;
+    height: 26px;
+    background-color: #2096da;
+    margin-top: 36px;
+}
+
+footer .fbl-content {
+    width: 100%;
+    height: 26px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+footer .navbar a {
+    font-family: 'MuseoSansCyrl_0', sans-serif;
+    font-size: 14px;
+    color: #fff;
+    text-transform: uppercase;
+    text-decoration: none;
+    margin: 0 6px;
+}
+
+footer .copyright {
+    font-family: 'MuseoSansCyrl_0', sans-serif;
+    font-size: 14px;
+    color: #fff;
+}
