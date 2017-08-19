@@ -14,7 +14,7 @@ header {
     min-height: 95px;
     background-color: #1b1b1c;
     border-bottom: 5px solid #2096da;
-    display: flex
+    display: flex;
 }
 
 header .content {

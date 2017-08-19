@@ -1,0 +1,7 @@
+.blog-sidebar {
+    width: 100%;
+    min-height: 500px;
+    background-image: url('../../assets/img/main-bg.jpg');
+    background-repeat: repeat;
+    padding: 50px 0;
+}
