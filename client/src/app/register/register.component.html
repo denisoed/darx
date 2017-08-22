@@ -1,0 +1,62 @@
+<section class="register">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="register-user">
+                    <h2>Registration</h2>
+                    <form [formGroup]="form" (submit)="onRegisterSubmit()">
+
+                        <!-- Email input -->
+
+                        <div>
+                            <input type="email" placeholder="Email" name="email" formControlName="email">
+                            <ul class="help-block">
+                                <li *ngIf="form.controls.email.errors?.required && form.controls.email.dirty">This field is required</li>
+                                <li *ngIf="(form.controls.email.errors?.minlength || form.controls.email.errors?.maxlength) && form.controls.email.dirty">Minimun characters: 5, Maximum characters: 30</li>
+                                <li *ngIf="form.controls.email.errors?.validateEmail && form.controls.email.dirty">This must be a valid email</li>
+                            </ul>
+                        </div>
+
+                        <!-- Username input -->
+
+                        <div>
+                            <input type="text" placeholder="Username" name="username" formControlName="username">
+                            <ul class="help-block">
+                                <li *ngIf="form.controls.username.errors?.required && form.controls.username.dirty">This field is required</li>
+                                <li *ngIf="(form.controls.username.errors?.minlength || form.controls.username.errors?.maxlength) && form.controls.username.dirty">Minimun characters: 3, Maximum characters: 15</li>
+                                <li *ngIf="form.controls.username.errors?.validateUsername && form.controls.username.dirty">Username must not any have special characters</li>
+                            </ul>
+                        </div>
+
+
+                        <!-- Password input -->
+
+                        <div>
+                            <input type="password" placeholder="Pasword" name="password" formControlName="password">
+                            <ul class="help-block">
+                                <li *ngIf="form.controls.password.errors?.required && form.controls.password.dirty">This field is required</li>
+                                <li *ngIf="(form.controls.password.errors?.minlength || form.controls.password.errors?.maxlength) && form.controls.password.dirty">Minimun characters: 8, Maximum characters: 35</li>
+                                <li *ngIf="form.controls.password.errors?.validatePassword && form.controls.password.dirty">Must have all least one uppercase, lowercase, special characters, and number</li>
+                            </ul>
+                        </div>
+
+
+                        <!-- Confirm password input -->
+
+                        <div>
+                            <input type="password" placeholder="Confirm password" name="confirm" formControlName="confirm">
+                            <ul class="help-block">
+                                <li *ngIf="form.controls.confirm.errors?.required && form.controls.confirm.dirty">This field is required</li>
+                                <li *ngIf="form.errors?.matchingPasswords && form.controls.confirm.dirty">Password do not match</li>
+                            </ul>
+                        </div>
+
+                        <button [disabled]="!form.valid" [ngClass]="{ 'register-valid': form.valid, 'register-novalid': !form.valid }" type="submit">
+                            Register
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

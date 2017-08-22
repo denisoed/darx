@@ -1,0 +1,106 @@
+.register {
+    width: 100%;
+    min-height: 500px;
+    background-image: url('../../assets/img/main-bg.jpg');
+    background-repeat: repeat;
+    padding: 50px 0;
+}
+
+.register .register-user {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.register .register-user h2 {
+    color: #c3c2c2;
+    font-family: 'MuseoSansCyrl_0', sans-serif;
+    font-size: 28px;
+}
+
+.register .register-user form {
+    width: 40%;
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding: 30px;
+    box-sizing: border-box;
+}
+
+.register .register-user form .help-block {}
+
+.register .register-user form .help-block li {
+    font-family: 'MuseoSansCyrl_0', sans-serif;
+    font-weight: bold;
+    font-size: 14px;
+    color: #e65252;
+    margin-bottom: 6px;
+    margin-left: 15px;
+}
+
+.register .register-user form .help-block li:last-child {
+    margin-bottom: 20px;
+}
+
+.register .register-user form input {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.5);
+    background-color: #272727;
+    margin-bottom: 15px;
+    color: #c3c2c2;
+    font-family: 'MuseoSansCyrl_0', sans-serif;
+    font-size: 14px;
+}
+
+.register .register-user form input::-webkit-input-placeholder {
+    /* Chrome/Opera/Safari */
+    font-family: 'MuseoSansCyrl_0', sans-serif;
+    font-size: 14px;
+    color: #c3c2c2;
+}
+
+.register .register-user form input::-moz-placeholder {
+    /* Firefox 19+ */
+    font-family: 'MuseoSansCyrl_0', sans-serif;
+    font-size: 14px;
+    color: #c3c2c2;
+}
+
+.register .register-user form input:-ms-input-placeholder {
+    /* IE 10+ */
+    font-family: 'MuseoSansCyrl_0', sans-serif;
+    font-size: 14px;
+    color: #c3c2c2;
+}
+
+.register .register-user form input:-moz-placeholder {
+    /* Firefox 18- */
+    font-family: 'MuseoSansCyrl_0', sans-serif;
+    font-size: 14px;
+    color: #c3c2c2;
+}
+
+.register .register-user form button {
+    border: none;
+    padding: 12px;
+    color: #c3c2c2;
+    background-color: #272727;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.5);
+    align-self: flex-end;
+    font-family: 'MuseoSansCyrl_0', sans-serif;
+    font-size: 14px;
+    text-transform: uppercase;
+}
+
+.register-valid {
+    cursor: pointer;
+}
+
+.register-novalid {
+    cursor: not-allowed;
+    opacity: 0.5;
+    text-decoration: line-through;
+}
