@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
 const app = express();
 
@@ -12,15 +13,19 @@ const authentication = require('./server/routes/authentication');
 mongoose.Promise = global.Promise;
 mongoose.connect(config.uri, (err) => {
     if (err) {
-        console.log('Could not connect to datbase: ', err);
+        console.log('Could not connect to database: ', err);
     } else {
         console.log("Connect to database:", config.db);
     }
 });
 
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-// app.use(express.static(__dirname + '/client/dist/'))
+app.use(cors({
+    origin: 'http://localhost:4200'
+}));
+app.use(express.static(__dirname + '/client/dist/'))
 
 app.use('/', index);
 app.use('/authentication', authentication);

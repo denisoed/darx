@@ -94,7 +94,7 @@ const passwordValidators = [{
     },
     {
         validator: validPassword,
-        message: 'Must have al least one uppercase, lowercase, special characters, and number'
+        message: 'Must have all least one uppercase, lowercase, special characters, and number'
     }
 ];
 mongoose.Promise = global.Promise;

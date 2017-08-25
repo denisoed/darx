@@ -5,3 +5,133 @@
     background-repeat: repeat;
     padding: 50px 0;
 }
+
+.blog-sidebar .image-post {
+    width: 100%;
+    height: 300px;
+    background-position: center;
+    background-size: cover;
+    outline: 10px solid rgba(39, 39, 39, 0.8);
+    margin-bottom: 20px;
+}
+
+.blog-sidebar .post-title {
+    color: #c7e5f6;
+    font-size: 18px;
+    font-family: 'CaviarDreams', sans-serif;
+    text-transform: uppercase;
+}
+
+.blog-sidebar .author_category {
+    display: flex;
+    width: 100%;
+    border-bottom: 1px dashed #353536;
+    padding: 15px 0;
+    margin-bottom: 20px;
+}
+
+.blog-sidebar .author_category .fa {
+    color: #c7e5f6;
+    margin-right: 6px;
+}
+
+.blog-sidebar .author_category span {
+    color: #c7e5f6;
+    text-transform: uppercase;
+    font-size: 13px;
+    font-family: 'MuseoSansCyrl_0', sans-serif;
+    margin-right: 25px;
+}
+
+.blog-sidebar .author_category a {
+    color: #c7e5f6;
+    text-transform: uppercase;
+    font-size: 13px;
+    font-family: 'MuseoSansCyrl_0', sans-serif;
+    text-decoration: none;
+}
+
+.blog-sidebar .post-text {
+    color: #c7e5f6;
+    font-size: 16px;
+    font-family: 'MuseoSansCyrl_0', sans-serif;
+    line-height: 1.5;
+    margin-bottom: 15px;
+}
+
+.blog-sidebar .read-more {
+    color: #2096da;
+    font-size: 15px;
+    font-family: 'MuseoSansCyrl_0', sans-serif;
+    text-decoration: none;
+}
+
+.blog-sidebar .date-comments {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.blog-sidebar .date-comments .date {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    background-color: #2096da;
+    border-radius: 100%;
+    color: #c7e5f6;
+    font-size: 22px;
+    font-family: 'MuseoSansCyrl_0', sans-serif;
+    z-index: 1;
+}
+
+.blog-sidebar .date-comments .date span {
+    font-size: 14px;
+}
+
+.blog-sidebar .date-comments .comments {
+    width: 60px;
+    height: 60px;
+    background-color: rgba(39, 39, 39, 0.5);
+    border-radius: 100%;
+    margin-top: -10px;
+    color: #c7e5f6;
+    font-size: 16px;
+    font-family: 'MuseoSansCyrl_0', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 0;
+    position: relative;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.5);
+}
+
+.blog-sidebar .date-comments .comments::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 30px;
+    height: 20px;
+    background-color: #2096da;
+    z-index: -1;
+    border-radius: 5px;
+}
+
+.blog-sidebar .date-comments .comments::after {
+    content: '';
+    position: absolute;
+    top: 59%;
+    left: 60%;
+    transform: translate(-50%, -50%);
+    width: 30px;
+    height: 20px;
+    z-index: -1;
+    border-style: solid;
+    border-width: 10px 0 10px 20px;
+    border-color: transparent transparent transparent #2096da;
+}

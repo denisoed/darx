@@ -1,5 +1,7 @@
+import { AuthService } from './../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -9,9 +11,17 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class RegisterComponent implements OnInit {
 
   form: FormGroup;
+  messageClass;
+  message;
+  emailValid;
+  emailMessage;
+  usernameValid;
+  usernameMessage;
   
   constructor(
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private authService: AuthService,
+    private router: Router
   ) {
     this.createForm();
   }
@@ -80,8 +90,51 @@ export class RegisterComponent implements OnInit {
     }
   }
 
+  checkEmail() {
+    this.authService.checkEmail(this.form.get('email').value.toLowerCase()).subscribe(data => {
+      if(!data.success) {
+        this.emailValid = false;
+        this.emailMessage = data.message;
+      }else{
+        this.emailValid = true;
+        this.emailMessage = data.message;
+      }
+    })
+  }
+  
+  checkUsername() {
+    this.authService.checkUsername(this.form.get('username').value.toLowerCase()).subscribe(data => {
+      if(!data.success) {
+        this.usernameValid = false;
+        this.usernameMessage = data.message;
+      }else{
+        this.usernameValid = true;
+        this.usernameMessage = data.message;
+      }
+    });
+  }
+  
   onRegisterSubmit() {
-    console.log(this.form);
+
+    const user = {
+      email: this.form.get('email').value,
+      username: this.form.get('username').value,
+      password: this.form.get('password').value
+    }
+
+    this.authService.registerUser(user).subscribe(data => {
+      if(!data.success){
+        this.messageClass = 'register-warning';
+        this.message = data.message;
+      } else{
+        this.messageClass = 'register-success';
+        this.message = data.message;
+        setTimeout(() => {
+          this.router.navigate(['/login']);
+        },2000);
+      } 
+    });
+
   }
 
   ngOnInit() {

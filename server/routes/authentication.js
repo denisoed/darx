@@ -1,13 +1,13 @@
 const express = require('express');
-const routes = express.Router();
+const router = express.Router();
 
 const userModel = require('../models/user');
 
-routes.get('/', (req, res) => {
+router.get('/', (req, res) => {
     res.send('Authentication working!');
 });
 
-routes.post('/register', (req, res) => {
+router.post('/register', (req, res) => {
     if (!req.body.email) {
         res.json({ success: false, message: "You must provide an email address" })
     } else {
@@ -46,7 +46,7 @@ routes.post('/register', (req, res) => {
                             }
                         }
                     } else {
-                        res.json({ success: true, message: "User saved!" });
+                        res.json({ success: true, message: "Registration completed successfully!" });
                     }
                 });
             }
@@ -54,4 +54,41 @@ routes.post('/register', (req, res) => {
     }
 });
 
-module.exports = routes;
+router.get('/checkEmail/:email', (req, res) => {
+    if (!req.params.email) {
+        res.json({ success: false, message: 'Email was not provided' });
+    } else {
+        userModel.findOne({ email: req.params.email }, (err, user) => {
+            if (err) {
+                res.json({ success: false, message: err });
+            } else {
+                if (user) {
+                    res.json({ success: false, message: 'Email is already taken' });
+                } else {
+                    res.json({ success: true, message: 'Email is available' });
+                }
+            }
+        });
+    }
+});
+
+router.get('/checkUsername/:username', (req, res) => {
+    console.log(req.params.username);
+    if (!req.params.username) {
+        res.json({ success: false, message: 'Username was not provided' });
+    } else {
+        userModel.findOne({ username: req.params.username }, (err, user) => {
+            if (err) {
+                res.json({ success: false, message: err });
+            } else {
+                if (user) {
+                    res.json({ success: false, message: 'Username is already taken' });
+                } else {
+                    res.json({ success: true, message: 'Username is available' });
+                }
+            }
+        });
+    }
+});
+
+module.exports = router;
