@@ -28,6 +28,7 @@
     "cors": "^2.8.4",
     "crypto": "^1.0.1",
     "express": "^4.15.4",
+    "jsonwebtoken": "^7.4.3",
     "mongoose": "^4.11.7"
   },
   "devDependencies": {

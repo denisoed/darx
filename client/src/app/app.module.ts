@@ -1,3 +1,4 @@
+import { ProfileComponent } from './profile/profile.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -33,6 +34,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
     Error404Component,
     RegisterComponent,
     LoginComponent,
+    ProfileComponent,
     SidebarComponent
   ],
   imports: [

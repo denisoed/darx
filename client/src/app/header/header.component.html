@@ -38,6 +38,8 @@
                     <a routerLink="/contact" routerLinkActive="active">Contact</a>
                     <a routerLink="/register" routerLinkActive="active">Register</a>
                     <a routerLink="/login" routerLinkActive="active">Login</a>
+                    <a *ngIf="authService.loggedIn()" routerLink="/profile" routerLinkActive="active">Profile</a>
+                    <a href="#" (click)="onLogoutClick()">Logout</a>
                 </nav>
             </div>
         </div>
