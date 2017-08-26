@@ -20,6 +20,8 @@ import { Error404Component } from './error404/error404.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { AuthGuard } from "./guards/auth.guard";
+import { NotAuthGuard } from "./guards/notAuth.guard";
 
 @NgModule({
   declarations: [
@@ -43,7 +45,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
     HttpModule,
     RouterModule.forRoot(routes)
   ],
-  providers: [AuthService],
-  bootstrap: [AppComponent]
+  providers: [ AuthService, AuthGuard, NotAuthGuard ],
+  bootstrap: [ AppComponent ]
 })
 export class AppModule { }

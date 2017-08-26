@@ -11,6 +11,8 @@ import { Error404Component } from './error404/error404.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
+import { AuthGuard } from "./guards/auth.guard";
+import { NotAuthGuard } from "./guards/notAuth.guard";
 
 export const routes: Routes = [
   {
@@ -28,7 +30,8 @@ export const routes: Routes = [
   },
   {
     path: 'blog',
-    component: BlogSidebarComponent
+    component: BlogSidebarComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'features',
@@ -40,15 +43,18 @@ export const routes: Routes = [
   },
   {
     path: 'register',
-    component: RegisterComponent
+    component: RegisterComponent,
+    canActivate: [NotAuthGuard]
   },
   {
     path: 'login',
-    component: LoginComponent
+    component: LoginComponent,
+    canActivate: [NotAuthGuard]
   },
   {
     path: 'profile',
-    component: ProfileComponent
+    component: ProfileComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: '**',

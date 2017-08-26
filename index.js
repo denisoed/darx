@@ -30,6 +30,6 @@ app.use(express.static(__dirname + '/client/dist/'))
 app.use('/', index);
 app.use('/authentication', authentication);
 
-app.listen(3000, () => {
-    console.log("Server working on port: 3000");
+app.listen(8080, () => {
+    console.log("Server working on port: 8080");
 });
