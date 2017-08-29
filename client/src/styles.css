@@ -17,6 +17,22 @@ ul {
     padding: 0;
 }
 
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  transition: background-color 5000s ease-in-out 0s;
+  -webkit-box-shadow: 0 0 0px 1000px #c3c2c2 inset;
+  -webkit-text-fill-color: #c3c2c2;
+}
+
+button::-moz-focus-inner{
+    border: 0;
+} 
+
+*{
+    outline: 0 !important;
+} 
 
 /* Fonts */
 
@@ -31,3 +47,8 @@ ul {
     src: url('/assets/fonts/MuseoSansCyrl_0/MuseoSansCyrl_0.eot');
     src: url('/assets/fonts/MuseoSansCyrl_0/MuseoSansCyrl_0.eot') format('embedded-opentype'), url('/assets/fonts/MuseoSansCyrl_0/MuseoSansCyrl_0.woff2') format('woff2'), url('/assets/fonts/MuseoSansCyrl_0/MuseoSansCyrl_0.woff') format('woff'), url('/assets/fonts/MuseoSansCyrl_0/MuseoSansCyrl_0.ttf') format('truetype'), url('/assets/fonts/MuseoSansCyrl_0/MuseoSansCyrl_0.svg#MuseoSansCyrl_0') format('svg');
 }
+
+    
+
+
+

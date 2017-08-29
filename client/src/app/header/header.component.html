@@ -31,7 +31,8 @@
                     </div>
                 </div>
                 <nav class="navbar">
-                    <a routerLink="/" routerLinkActive="active" class="nav-active">Home</a>
+
+                    <a routerLink="/" routerLinkActive="active">Home</a>
                     <a routerLink="/news" routerLinkActive="active">News</a>
                     <a routerLink="/blog" routerLinkActive="active">Blog</a>
                     <a routerLink="/features" routerLinkActive="active">Features</a>
@@ -40,6 +41,7 @@
                     <a *ngIf="!authService.loggedIn()" routerLink="/login" routerLinkActive="active">Login</a>
                     <a *ngIf="authService.loggedIn()" routerLink="/profile" routerLinkActive="active">Profile</a>
                     <a href="#" (click)="onLogoutClick()">Logout</a>
+
                 </nav>
             </div>
         </div>

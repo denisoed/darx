@@ -13,7 +13,7 @@ export class LoginComponent implements OnInit {
 
   form: FormGroup;
   message;
-  messageClass;
+  messageClass; 
   previousUrl;
 
   constructor(

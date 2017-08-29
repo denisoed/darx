@@ -97,6 +97,6 @@ header .info_and_nav .navbar a {
     border: 2px solid #2096da;
 } */
 
-.nav-active {
+.active {
     background-color: #2096da;
 }

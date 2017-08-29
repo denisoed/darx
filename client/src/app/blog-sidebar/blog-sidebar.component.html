@@ -2,7 +2,9 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8">
-                <div class="post-item">
+
+                <!-- Post  -->
+                <div class="post-item" *ngFor="let post of posts">
                     <div class="image-post" style="background-image: url('assets/img/s1-min.jpg')"></div>
                     <div class="info-post">
                         <div class="row">
@@ -10,28 +12,27 @@
                             <!-- Date and qnt comments -->
                             <div class="col-lg-2">
                                 <div class="date-comments">
-                                    <div class="date">21 <span>jun</span></div>
-                                    <div class="comments">5</div>
+                                    <div class="date">{{ post.createdAt.fullDate | date: 'dd' }} <span>{{ post.createdAt.month }}</span></div>
+                                    <div class="comments">{{ post.comments.length }}</div>
                                 </div>
                             </div>
 
                             <!-- Info -->
                             <div class="col-lg-10">
-                                <h3 class="post-title">Fashion beauty portrain</h3>
+                                <h3 class="post-title">{{ post.title }}</h3>
                                 <div class="author_category">
-                                    <span><i class="fa fa-user"></i> Administrator</span>
+                                    <span><i class="fa fa-user"></i> {{ post.createdBy }}</span>
                                     <a href="#"><i class="fa fa-bars"></i> Interviews</a>
                                 </div>
-                                <p class="post-text">
-                                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tempora quae pariatur dolorem quod iste aliquam recusandae consectetur possimus unde dolor alias, beatae repudiandae sit in quis, accusamus facere nam neque. Unde, sunt quos esse sequi libero consectetur
-                                    vero nihil molestiae.
-                                </p>
+                                <p class="post-text" [innerHtml]="post.text | keepHtml"></p>
                                 <a href="#" class="read-more">Read more</a>
                             </div>
 
                         </div>
                     </div>
                 </div>
+                <!-- End post -->
+
             </div>
 
             <!-- Sidebar -->

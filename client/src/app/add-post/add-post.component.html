@@ -1,0 +1,55 @@
+<section class="add-post">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="create-new-post">
+
+          <h2>Add new post</h2>
+
+          <!-- Block for info message -->
+          <div class="for-message">
+            <div [ngClass]="messageClass">
+              {{ message }}
+            </div>
+          </div>
+
+          <form [formGroup]="form" (submit)="createPostSubmit()">
+
+            <!-- Input title post -->
+            <div class="box-input">
+              <input type="text" placeholder="Post title" name="title" formControlName="title">
+              <ul class="help-block-warning">
+                <li *ngIf="form.controls.title.dirty && form.controls.title.errors?.required">This field is required.</li>
+                <li *ngIf="(form.controls.title.dirty && form.controls.title.errors?.minlength) || (form.controls.title.dirty && form.controls.title.errors?.maxlength)">Max length: 50, Min length: 5</li>
+              </ul>
+            </div>
+            
+            <!-- Input for text post -->
+            <div class="box-input">
+              <textarea rows="20" cols="50" name="text" formControlName="text" id="{{elementId}}"></textarea>
+            </div>
+            
+            <!-- Select category -->
+            <div class="box-input">
+              
+              <div class="select-category">
+                <input type="text" placeholder="Please select category" value="">
+                <ul class="the-category">
+                  <li>Interviews</li>
+                  <li>Video and Audio</li>
+                  <li>Photography</li>
+                  <li>News from around the World</li>
+                  <li>Other Stuff</li>
+                </ul>
+              </div>
+
+            </div>
+
+            <button type="submit">Create new post</button>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

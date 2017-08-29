@@ -9,3 +9,10 @@
 h2 {
     color: white;
 }
+
+.add-new-post{
+    padding: 8px;
+    background-color: #fff;
+    color: #000;
+    
+}

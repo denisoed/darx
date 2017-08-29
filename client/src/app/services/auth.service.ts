@@ -9,6 +9,7 @@ export class AuthService {
   authToken;
   user;
   options;
+  domain = 'http://localhost:3000/';
 
 
   constructor(
@@ -37,19 +38,19 @@ export class AuthService {
   }
 
   registerUser(user) {
-    return this.http.post('http://localhost:8080/authentication/register', user).map(res => res.json());
+    return this.http.post(this.domain + 'authentication/register', user).map(res => res.json());
   }
   
   checkEmail(email) {
-    return this.http.get('http://localhost:8080/authentication/checkEmail/' +  email).map(res => res.json());
+    return this.http.get(this.domain + 'authentication/checkEmail/' +  email).map(res => res.json());
   }
   
   checkUsername(username) {
-    return this.http.get('http://localhost:8080/authentication/checkUsername/' +  username).map(res => res.json());
+    return this.http.get(this.domain + 'authentication/checkUsername/' +  username).map(res => res.json());
   }
   
   login(user) {
-    return this.http.post('http://localhost:8080/authentication/login', user).map(res => res.json());
+    return this.http.post(this.domain + 'authentication/login', user).map(res => res.json());
   }
 
   storeUserData(token, user) {
@@ -62,7 +63,7 @@ export class AuthService {
 
   getProfile() {
     this.createAuthenticationHeaders();
-    return this.http.get('http://localhost:8080/authentication/profile', this.options).map(res => res.json());
+    return this.http.get(this.domain + 'authentication/profile', this.options).map(res => res.json());
   }
 
   loggedIn() {
