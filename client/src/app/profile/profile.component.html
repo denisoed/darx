@@ -1,9 +1,75 @@
 <section class="profile">
+    <div class="container" *ngIf="user && userAllPosts">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="about-me">
+                    <img src="../../assets/img/avatars/{{ user.avatar }}" alt="User avatar" class="avatar">
+                    <div class="about-me-info">
+                        <h4 class="my-name">{{ user.firstname }} {{ user.lastname }}</h4>
+                        <p class="desc">{{ user.aboutme }}</p>
 
-    <h2>Email: {{ email }}</h2>
-    <h2>Username: {{ username }}</h2>
+                        <h5 class="contact-info">Basic information</h5>
+                        <ul class="contacts">
+                            <li><span>Birthday: </span>{{ user.birthday.month }} {{ user.birthday.day }}, {{ user.birthday.year }}</li>
+                            <li><span>Gender: </span>{{ user.gender }}</li>
+                        </ul>
 
-<a routerLink="/add-new-post" class="add-new-post">Add new post</a>
+                        <h5 class="contact-info">Contact information</h5>
+                        <ul class="contacts">
+                            <li><span>Email: </span>{{ user.email }}</li>
+                            <li><span>Phone: </span> {{ user.phone }}</li>
+                            <li><span>State: </span> {{ user.state }}</li>
+                            <li><span>Address: </span> {{ user.address }}</li>
+                        </ul>
+                    </div>
+                    <div class="sidebar-profile">
+                        <button routerLink="/add-new-post" class="add-new-post">Add new post</button>
+                        <ul class="info-my-posts">
+                            <li>Total posts: <span>{{ userAllPosts.length }}</span></li>
+                            <li>Total likes: <span></span></li>
+                            <li>Total dislikes: <span></span></li>
+                        </ul>
+                </div>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="my-posts">
+                    <h3>My posts</h3>
 
+                    <!-- Post  -->
+                    <div class="post-item" *ngFor="let post of userAllPosts">
+                        <div class="image-post" [ngStyle]="{'background-image': 'url(../../assets/img/posts/' + post.image + ')'}"></div>
+                        <div class="info-post">
+                            <div class="row">
 
+                                <!-- Date and qnt comments -->
+                                <div class="col-lg-2">
+                                    <div class="date-comments">
+                                        <div class="date">{{ post.createdAt.fullDate | date: 'dd' }} <span>{{ post.createdAt.month }}</span></div>
+                                        <div class="comments">{{ post.comments.length }}</div>
+                                    </div>
+                                </div>
+
+                                <!-- Info -->
+                                <div class="col-lg-10">
+                                    <a [routerLink]="['/post/', post._id]">
+                                        <h3 class="post-title">{{ post.title }}</h3>
+                                    </a>
+                                    <div class="author_category">
+                                        <span><i class="fa fa-user"></i> {{ post.createdBy }}</span>
+                                        <a href="#"><i class="fa fa-bars"></i> {{ post.category }}</a>
+                                    </div>
+                                    <p class="post-text" [innerHtml]="post.text | slice | keepHtml"></p>
+                                    <a [routerLink]="['/post/', post._id]" class="read-more">Read more</a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End post -->
+
+                </div>
+            </div>
+        </div>
+    </div>
 </section>

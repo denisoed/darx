@@ -1,119 +1,295 @@
 <section class="register">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
+        <div class="row justify-content-lg-center">
+            <div class="col-lg-6">
                 <div class="register-user">
                     <h2>Registration</h2>
 
                     <!-- Block for info message -->
                     <div class="for-message">
-                        <div [ngClass]="messageClass">
+                        <div [ngClass]="messageClass"> 
                             {{ message }}
                         </div>
                     </div>
 
+                    
                     <form [formGroup]="form" (submit)="onRegisterSubmit()">
+                        
+                        <!-- Accout information -->
+                        <div class="accunt-info group-inputs">
+                            <h4 class="group-title"><span>Account</span> information</h4>
 
-                        <!-- Email input -->
+                            <!-- Email input -->
+                                <div class="box-input">
+                                    <input type="email" placeholder="Email" name="email" formControlName="email" (blur)="checkEmail()">
+                                    <ul class="help-block-warning">
+                                        <li *ngIf="form.controls.email.errors?.required && form.controls.email.dirty">
+                                            <i class="fa fa-exclamation-circle" aria-hidden="true"></i> This field is required
+                                        </li>
+                                        <li *ngIf="(form.controls.email.errors?.minlength || form.controls.email.errors?.maxlength) && form.controls.email.dirty">
+                                            <i class="fa fa-exclamation-circle" aria-hidden="true"></i> Minimun characters: 5, Maximum characters: 30
+                                        </li>
+                                        <li *ngIf="form.controls.email.errors?.validateEmail && form.controls.email.dirty">
+                                            <i class="fa fa-exclamation-circle" aria-hidden="true"></i> This must be a valid email
+                                        </li>
+                                        <li *ngIf="emailMessage && !emailValid">
+                                            <i class="fa fa-exclamation-circle" aria-hidden="true"></i>{{ emailMessage }}
+                                        </li>
+                                    </ul>
+                                    <ul class="help-block-success">
+                                        <li *ngIf="emailValid && !form.controls.email.errors">
+                                            <i class="fa fa-check-circle" aria-hidden="true"></i>
+                                        </li>
+                                    </ul>
+                                </div>
 
-                        <div>
+                                <!-- Username input -->
+
+                                <div class="box-input">
+                                    <input type="text" placeholder="Username" name="username" formControlName="username" (blur)="checkUsername()">
+                                    <ul class="help-block-warning">
+                                        <li *ngIf="form.controls.username.errors?.required && form.controls.username.dirty">
+                                            <i class="fa fa-exclamation-circle" aria-hidden="true"></i> This field is required
+                                        </li>
+                                        <li *ngIf="(form.controls.username.errors?.minlength || form.controls.username.errors?.maxlength) && form.controls.username.dirty">
+                                            <i class="fa fa-exclamation-circle" aria-hidden="true"></i> Minimun characters:
+                                            3, Maximum characters: 15
+                                        </li>
+                                        <li *ngIf="form.controls.username.errors?.validateUsername && form.controls.username.dirty">
+                                            <i class="fa fa-exclamation-circle" aria-hidden="true"></i> Username must not
+                                            any have special characters
+                                        </li>
+                                        <li *ngIf="usernameMessage && !usernameValid">
+                                            <i class="fa fa-exclamation-circle" aria-hidden="true"></i>{{ usernameMessage
+                                            }}
+                                        </li>
+                                    </ul>
+                                    <ul class="help-block-success">
+                                        <li *ngIf="usernameValid && !form.controls.username.errors">
+                                            <i class="fa fa-check-circle" aria-hidden="true"></i>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <!-- Password input -->
+
+                                <div class="box-input">
+                                    <input type="password" placeholder="Pasword" name="password" formControlName="password">
+                                    <ul class="help-block-warning">
+                                        <li *ngIf="form.controls.password.errors?.required && form.controls.password.dirty">
+                                            <i class="fa fa-exclamation-circle" aria-hidden="true"></i> This field is required
+                                        </li>
+                                        <li *ngIf="(form.controls.password.errors?.minlength || form.controls.password.errors?.maxlength) && form.controls.password.dirty">
+                                            <i class="fa fa-exclamation-circle" aria-hidden="true"></i> Minimun characters:
+                                            8, Maximum characters: 35
+                                        </li>
+                                        <li *ngIf="form.controls.password.errors?.validatePassword && form.controls.password.dirty">
+                                            <i class="fa fa-exclamation-circle" aria-hidden="true"></i> Must have all least
+                                            one uppercase, lowercase, special characters, and number
+                                        </li>
+                                    </ul>
+                                    <ul class="help-block-success">
+                                        <li *ngIf="!form.controls.password.errors">
+                                            <i class="fa fa-check-circle" aria-hidden="true"></i>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <!-- Confirm password input -->
+
+                                <div class="box-input">
+                                    <input type="password" placeholder="Confirm password" name="confirm" formControlName="confirm">
+                                    <ul class="help-block-warning">
+                                        <li *ngIf="form.controls.confirm.errors?.required && form.controls.confirm.dirty">
+                                            <i class="fa fa-exclamation-circle" aria-hidden="true"></i> This field is required
+                                        </li>
+                                        <li *ngIf="form.errors?.matchingPasswords && form.controls.confirm.dirty">
+                                            <i class="fa fa-exclamation-circle" aria-hidden="true"></i> Password do not match
+                                        </li>
+                                    </ul>
+                                    <ul class="help-block-success">
+                                        <li *ngIf="!form.controls.confirm.errors && !form.errors?.matchingPasswords">
+                                            <i class="fa fa-check-circle" aria-hidden="true"></i>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <!-- Security Question -->
+                                <div class="box-input">
+                                    <input type="text" placeholder="Security question" formControlName="securityQuestion">
+                                    <ul class="help-block-warning">
+                                        <li *ngIf="form.controls.securityQuestion.errors?.required && form.controls.securityQuestion.dirty">
+                                            <i class="fa fa-exclamation-circle" aria-hidden="true"></i> This field is required
+                                        </li>
+                                        <li *ngIf="(form.controls.securityQuestion.errors?.minlength || form.controls.securityQuestion.errors?.maxlength) && form.controls.securityQuestion.dirty">
+                                            <i class="fa fa-exclamation-circle" aria-hidden="true"></i> Minimun characters:
+                                            3, Maximum characters: 100
+                                        </li>
+                                    </ul>
+                                    <ul class="help-block-success">
+                                        <li *ngIf="!form.controls.securityQuestion.errors">
+                                            <i class="fa fa-check-circle" aria-hidden="true"></i>
+                                        </li>
+                                    </ul>
+                                </div>
+                            
+                        </div>
+                      
+                        <!-- Personal infirmation -->
+                        <div class="personal-info group-inputs">
+                            <h4 class="group-title"><span>Personal</span> information</h4>
+
+                            <!-- Avatar -->
                             <div class="box-input">
-                                <input type="email" placeholder="Email" name="email" formControlName="email" (blur)="checkEmail()">
+                                <input type="file" name="avatar" (change)="addAvatar($event)">
+                            </div>
+
+                            <!-- Firsname -->
+                            <div class="box-input">
+                                <input type="text" placeholder="Firstname" formControlName="firstname">
                                 <ul class="help-block-warning">
-                                    <li *ngIf="form.controls.email.errors?.required && form.controls.email.dirty">
+                                    <li *ngIf="form.controls.firstname.errors?.required && form.controls.firstname.dirty">
                                         <i class="fa fa-exclamation-circle" aria-hidden="true"></i> This field is required
                                     </li>
-                                    <li *ngIf="(form.controls.email.errors?.minlength || form.controls.email.errors?.maxlength) && form.controls.email.dirty">
-                                        <i class="fa fa-exclamation-circle" aria-hidden="true"></i> Minimun characters: 5, Maximum characters: 30
-                                    </li>
-                                    <li *ngIf="form.controls.email.errors?.validateEmail && form.controls.email.dirty">
-                                        <i class="fa fa-exclamation-circle" aria-hidden="true"></i> This must be a valid email
-                                    </li>
-                                    <li *ngIf="emailMessage && !emailValid">
-                                        <i class="fa fa-exclamation-circle" aria-hidden="true"></i>{{ emailMessage }}
-                                    </li>
+                                    <li *ngIf="(form.controls.firstname.errors?.minlength || form.controls.firstname.errors?.maxlength) && form.controls.firstname.dirty">
+                                        <i class="fa fa-exclamation-circle" aria-hidden="true"></i> Minimun characters: 3,
+                                        Maximum characters: 15
+                                    </li>  
                                 </ul>
                                 <ul class="help-block-success">
-                                    <li *ngIf="emailValid && !form.controls.email.errors">
+                                    <li *ngIf="!form.controls.firstname.errors">
                                         <i class="fa fa-check-circle" aria-hidden="true"></i>
                                     </li>
                                 </ul>
                             </div>
-                        </div>
 
-                        <!-- Username input -->
-
-                        <div>
+                            <!-- lastname -->
                             <div class="box-input">
-                                <input type="text" placeholder="Username" name="username" formControlName="username" (blur)="checkUsername()">
+                                <input type="text" placeholder="Lastname" formControlName="lastname">
                                 <ul class="help-block-warning">
-                                    <li *ngIf="form.controls.username.errors?.required && form.controls.username.dirty">
+                                    <li *ngIf="form.controls.lastname.errors?.required && form.controls.lastname.dirty">
                                         <i class="fa fa-exclamation-circle" aria-hidden="true"></i> This field is required
                                     </li>
-                                    <li *ngIf="(form.controls.username.errors?.minlength || form.controls.username.errors?.maxlength) && form.controls.username.dirty">
-                                        <i class="fa fa-exclamation-circle" aria-hidden="true"></i> Minimun characters: 3, Maximum characters: 15
-                                    </li>
-                                    <li *ngIf="form.controls.username.errors?.validateUsername && form.controls.username.dirty">
-                                        <i class="fa fa-exclamation-circle" aria-hidden="true"></i> Username must not any have special characters
-                                    </li>
-                                    <li *ngIf="usernameMessage && !usernameValid">
-                                        <i class="fa fa-exclamation-circle" aria-hidden="true"></i>{{ usernameMessage }}
+                                    <li *ngIf="(form.controls.lastname.errors?.minlength || form.controls.lastname.errors?.maxlength) && form.controls.lastname.dirty">
+                                        <i class="fa fa-exclamation-circle" aria-hidden="true"></i> Minimun characters: 3,
+                                        Maximum characters: 15
                                     </li>
                                 </ul>
                                 <ul class="help-block-success">
-                                    <li *ngIf="usernameValid && !form.controls.username.errors">
+                                    <li *ngIf="!form.controls.lastname.errors">
                                         <i class="fa fa-check-circle" aria-hidden="true"></i>
                                     </li>
                                 </ul>
                             </div>
-                        </div>
 
-
-                        <!-- Password input -->
-
-                        <div>
+                            <!-- About me -->
                             <div class="box-input">
-                                <input type="password" placeholder="Pasword" name="password" formControlName="password">
-                                <ul class="help-block-warning">
-                                    <li *ngIf="form.controls.password.errors?.required && form.controls.password.dirty">
-                                        <i class="fa fa-exclamation-circle" aria-hidden="true"></i> This field is required
-                                    </li>
-                                    <li *ngIf="(form.controls.password.errors?.minlength || form.controls.password.errors?.maxlength) && form.controls.password.dirty">
-                                        <i class="fa fa-exclamation-circle" aria-hidden="true"></i> Minimun characters: 8, Maximum characters: 35
-                                    </li>
-                                    <li *ngIf="form.controls.password.errors?.validatePassword && form.controls.password.dirty">
-                                        <i class="fa fa-exclamation-circle" aria-hidden="true"></i> Must have all least one uppercase, lowercase, special characters, and number
-                                    </li>
-                                </ul>
+                                <label for="aboutme">About me</label>
+                                <textarea id="aboutme" formControlName="aboutme"></textarea>
                                 <ul class="help-block-success">
-                                    <li *ngIf="!form.controls.password.errors">
+                                    <li *ngIf="!form.controls.aboutme.errors">
                                         <i class="fa fa-check-circle" aria-hidden="true"></i>
                                     </li>
                                 </ul>
                             </div>
-                        </div>
 
+                            <div class="group-inputs-select">
+                                <h4>Birthday</h4>
 
-                        <!-- Confirm password input -->
+                                <!-- Day -->
+                                <div class="box-input category-dropdown">
+                                    <div class="category-inp">
+                                        {{ selectDay }}
+                                        <i class="fa fa-chevron-down"></i>
+                                    </div>
+                                    <ul class="list-dropdown-items">
+                                        <li *ngFor="let item of day" (click)="dayDropDown(dropdownItem.innerText)" #dropdownItem>{{ item }}</li>
+                                    </ul>
+                                </div>
+                                
+                                <!-- Month -->
+                                <div class="box-input category-dropdown">
+                                    <div class="category-inp">
+                                        {{ selectMonth }}
+                                        <i class="fa fa-chevron-down"></i>
+                                    </div>
+                                    <ul class="list-dropdown-items">
+                                        <li *ngFor="let item of month" (click)="monthDropDown(dropdownItem.innerText)" #dropdownItem>{{ item }}</li>
+                                    </ul>
+                                </div>
+                                
+                                <!-- Years -->
+                                <div class="box-input category-dropdown">
+                                    <div class="category-inp">
+                                        {{ selectYear }}
+                                        <i class="fa fa-chevron-down"></i>
+                                    </div>
+                                    <ul class="list-dropdown-items">
+                                        <li *ngFor="let item of years" (click)="yearDropDown(dropdownItem.innerText)" #dropdownItem>{{ item }}</li>
+                                    </ul>
+                                </div>
 
-                        <div>
-                            <div class="box-input">
-                                <input type="password" placeholder="Confirm password" name="confirm" formControlName="confirm">
-                                <ul class="help-block-warning">
-                                    <li *ngIf="form.controls.confirm.errors?.required && form.controls.confirm.dirty">
-                                        <i class="fa fa-exclamation-circle" aria-hidden="true"></i> This field is required
-                                    </li>
-                                    <li *ngIf="form.errors?.matchingPasswords && form.controls.confirm.dirty">
-                                        <i class="fa fa-exclamation-circle" aria-hidden="true"></i> Password do not match
-                                    </li>
-                                </ul>
+                            </div>
+
+                            <!-- Gender -->
+                            <div class="box-input box-gender">
+                                <label for="genderMale" (click)="genderDropDown(dropdownItemMale.value)">
+                                    Male
+                                    <input type="radio" id="genderMale" name="gender" value="Male" #dropdownItemMale formControlName="gender">
+                                </label>
+
+                                <label for="genderFemale" (click)="genderDropDown(dropdownItemFemale.value)">
+                                    Female
+                                    <input type="radio" id="genderFemale" name="gender" value="Female" #dropdownItemFemale formControlName="gender">
+                                </label>    
                                 <ul class="help-block-success">
-                                    <li *ngIf="!form.controls.confirm.errors">
+                                    <li *ngIf="!form.controls.gender.errors">
                                         <i class="fa fa-check-circle" aria-hidden="true"></i>
                                     </li>
                                 </ul>
                             </div>
+
                         </div>
+
+                        <!-- Contact information -->
+                         <div class="contact-info group-inputs">
+                             <div class="group-title"><span>Contact</span> information</div>
+                             
+                             <!-- Phone -->
+                             <div class="box-input">
+                                 <input type="text" placeholder="Phone" formControlName="phone">
+                                 <ul class="help-block-success">
+                                    <li *ngIf="!form.controls.phone.errors">
+                                        <i class="fa fa-check-circle" aria-hidden="true"></i>
+                                    </li>
+                                </ul>
+                             </div>
+
+                             <!-- Address -->
+                             <div class="box-input">
+                                 <input type="text" placeholder="Address" formControlName="address">
+                                 <ul class="help-block-success">
+                                    <li *ngIf="!form.controls.address.errors">
+                                        <i class="fa fa-check-circle" aria-hidden="true"></i>
+                                    </li>
+                                </ul>
+                             </div>
+    
+                             <div class="box-input group-inputs-select">       
+                                 <!-- State -->
+                                 <div class="category-dropdown">
+                                     <div class="category-inp">
+                                         {{ selectState }}
+                                         <i class="fa fa-chevron-down"></i>
+                                     </div>
+                                     <ul class="list-dropdown-items">
+                                         <li *ngFor="let item of state" (click)="stateDropDown(dropdownItem.innerText)" #dropdownItem>{{ item }}</li>
+                                     </ul>
+                                 </div>
+                                
+                            </div>
+
+                         </div>
 
                         <button [disabled]="!form.valid || !usernameValid || !emailValid" [ngClass]="{ 'register-valid': form.valid || usernameValid || emailValid, 'register-novalid': !form.valid || !usernameValid || !emailValid }" type="submit">
                             Register

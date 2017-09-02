@@ -128,7 +128,7 @@
 .c-dropbown {
     height: 0;
     transition: height .5s ease;
-    overflow: hidden;
+    overflow-x: auto;
 }
 
 .c-dropbown li {

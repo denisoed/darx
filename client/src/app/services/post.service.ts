@@ -26,13 +26,27 @@ export class PostService {
   }
 
   createPost(post) {
-    this.createAuthenticationHeaders();
-    return this.http.post(this.domain + 'post/add-post', post, this.options).map(res => res.json());
+    
+    let formData: FormData = new FormData();
+    formData.append('post', JSON.stringify(post));
+    formData.append('imagePost', post.image);
+
+    return this.http.post(this.domain + 'post/add-post', formData).map(res => res.json());
   }
 
   getAllPosts() {
     this.createAuthenticationHeaders();
     return this.http.get(this.domain + 'post/all-posts', this.options).map(res => res.json());
+  }
+
+  getSinglePost(id) {
+    this.createAuthenticationHeaders();
+    return this.http.get(this.domain + 'post/single-post/' + id, this.options).map(res => res.json());
+  }
+
+  getUserPosts(id) {
+    this.createAuthenticationHeaders();
+    return this.http.get(this.domain + 'post/user-posts/' + id, this.options).map(res => res.json());
   }
 
 }

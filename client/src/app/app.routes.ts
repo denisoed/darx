@@ -13,7 +13,9 @@ import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AuthGuard } from "./guards/auth.guard";
 import { NotAuthGuard } from "./guards/notAuth.guard";
-import { AddPostComponent } from "app/add-post/add-post.component";
+import { AddPostComponent } from "./add-post/add-post.component";
+import { SinglePostComponent } from "./single-post/single-post.component";
+
 
 export const routes: Routes = [
   {
@@ -61,6 +63,11 @@ export const routes: Routes = [
     path: 'add-new-post',
     component: AddPostComponent,
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'post/:id',
+    component: SinglePostComponent, 
+    canActivate: [AuthGuard] // User must be logge din to view this route
   },
   {
     path: '**',

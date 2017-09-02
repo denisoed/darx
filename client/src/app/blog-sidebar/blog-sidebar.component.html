@@ -5,7 +5,7 @@
 
                 <!-- Post  -->
                 <div class="post-item" *ngFor="let post of posts">
-                    <div class="image-post" style="background-image: url('assets/img/s1-min.jpg')"></div>
+                    <div class="image-post" [ngStyle]="{'background-image': 'url(../../assets/img/posts/' + post.image + ')'}"></div>
                     <div class="info-post">
                         <div class="row">
 
@@ -19,12 +19,14 @@
 
                             <!-- Info -->
                             <div class="col-lg-10">
-                                <h3 class="post-title">{{ post.title }}</h3>
+                                <a [routerLink]="['/post/', post._id]">
+                                    <h3 class="post-title">{{ post.title }}</h3>
+                                </a>
                                 <div class="author_category">
                                     <span><i class="fa fa-user"></i> {{ post.createdBy }}</span>
-                                    <a href="#"><i class="fa fa-bars"></i> Interviews</a>
+                                    <a href="#"><i class="fa fa-bars"></i> {{ post.category }}</a>
                                 </div>
-                                <p class="post-text" [innerHtml]="post.text | keepHtml"></p>
+                                <p class="post-text" [innerHtml]="post.text | slice | keepHtml"></p>
                                 <a href="#" class="read-more">Read more</a>
                             </div>
 

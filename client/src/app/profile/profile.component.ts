@@ -1,5 +1,7 @@
-import { AuthService } from './../services/auth.service';
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from './../services/auth.service';
+import { PostService } from "./../services/post.service";
+import { Observable } from 'rxjs/Rx';
 
 @Component({
   selector: 'app-profile',
@@ -8,18 +10,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfileComponent implements OnInit {
 
-  email;
-  username;
+  user;
+  userAllPosts;
+  allLikes;
 
   constructor(
-    private authService: AuthService
+    private authService: AuthService,
+    private postService: PostService
   ) { }
 
-  ngOnInit() {
+  getProfile() {
     this.authService.getProfile().subscribe(profile => {
-      this.email = profile.user.email;
-      this.username = profile.user.username;
+      this.user = profile.user;
+
+      this.postService.getUserPosts(profile.user._id).subscribe(data => {
+        this.userAllPosts = data.posts;
+      });
+
     });
+  }
+    
+  ngOnInit() {
+      this.getProfile();;
   }
 
 }

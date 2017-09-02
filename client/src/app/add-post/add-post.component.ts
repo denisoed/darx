@@ -24,7 +24,16 @@ export class AddPostComponent implements OnInit, AfterViewInit, OnDestroy {
   editor;
   elementId = 'post-editor';
   content;
-  username;
+  user;
+  imagePost;
+  selectCategory = 'Please select category';
+  category = [
+    'Interviews',
+    'Video and Audio',
+    'Photography',
+    'News from around the World',
+    'Other Stuff'
+  ];
 
   ngAfterViewInit(): void {
     tinymce.init({
@@ -61,17 +70,23 @@ export class AddPostComponent implements OnInit, AfterViewInit, OnDestroy {
         Validators.minLength(5),
         Validators.maxLength(50)
       ])],
-      text: ['', Validators.compose([
-        Validators.required
-      ])]
+      text: ['', Validators.required]
     })
+  }
+  
+  getImagePost(imagePost: any) {
+    let target = imagePost.target;
+    this.imagePost = target.files[0];
   }
 
   createPostSubmit(){
     const post = {
+      foreignKey: this.user._id,
       title: this.form.get('title').value,
       text: this.content,
-      createdBy: this.username
+      image: this.imagePost,
+      category: this.selectCategory,
+      createdBy: this.user.username
     }
     
     return this.postService.createPost(post).subscribe(data => {
@@ -85,10 +100,17 @@ export class AddPostComponent implements OnInit, AfterViewInit, OnDestroy {
     })
   }
 
+
+  categoryDropDown(value) {
+    this.selectCategory = value;
+  }
+
   ngOnInit() { 
     this.authService.getProfile().subscribe(profile => {
-      this.username = profile.user.username;
+      this.user = profile.user;
     })
+
+    
   }
 
 }

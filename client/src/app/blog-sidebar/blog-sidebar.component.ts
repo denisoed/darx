@@ -2,6 +2,17 @@ import { Component, OnInit, PipeTransform, Pipe } from '@angular/core';
 import { PostService } from "../services/post.service";
 import { DomSanitizer } from '@angular/platform-browser'
 
+@Pipe({
+  name: 'slice'
+})
+export class SlicePipe implements PipeTransform {
+
+  transform(text: string): string {
+    return text.toString().slice(0, 300) + '...';
+  }
+
+}
+
 @Pipe({ name: 'keepHtml', pure: false })
 export class EscapeHtmlPipe implements PipeTransform {
   constructor(private sanitizer: DomSanitizer) {
@@ -20,6 +31,9 @@ export class EscapeHtmlPipe implements PipeTransform {
 export class BlogSidebarComponent implements OnInit {
 
   posts;
+  singlePost;
+  currentUrl;
+
   constructor(
     private postService: PostService
   ) { }
@@ -27,7 +41,6 @@ export class BlogSidebarComponent implements OnInit {
   getAllPost() {
     this.postService.getAllPosts().subscribe(data => {
       this.posts = data.posts;
-      console.log(data.posts.length);
     });
   }
 

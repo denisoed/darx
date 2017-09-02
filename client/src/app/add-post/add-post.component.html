@@ -24,25 +24,25 @@
               </ul>
             </div>
             
+            <!-- Image post -->
+            <div class="box-input">
+              <input type="file" name="imagePost" (change)="getImagePost($event)">
+            </div>
+
             <!-- Input for text post -->
             <div class="box-input">
               <textarea rows="20" cols="50" name="text" formControlName="text" id="{{elementId}}"></textarea>
             </div>
             
             <!-- Select category -->
-            <div class="box-input">
-              
-              <div class="select-category">
-                <input type="text" placeholder="Please select category" value="">
-                <ul class="the-category">
-                  <li>Interviews</li>
-                  <li>Video and Audio</li>
-                  <li>Photography</li>
-                  <li>News from around the World</li>
-                  <li>Other Stuff</li>
-                </ul>
+            <div class="box-input category-dropdown">
+              <div class="category-inp">
+                {{ selectCategory }}
+                <i class="fa fa-chevron-down"></i>
               </div>
-
+              <ul class="list-dropdown-items">
+                <li *ngFor="let item of category" (click)="categoryDropDown(dropdownItem.innerText)" #dropdownItem >{{ item }}</li>
+              </ul>
             </div>
 
             <button type="submit">Create new post</button>

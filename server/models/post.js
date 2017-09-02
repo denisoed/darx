@@ -66,8 +66,11 @@ let month = () => {
 
 mongoose.Promise = global.Promise;
 const PostSchema = new Schema({
+  foreignKey: { type: String }, 
   title: { type: String, required: true, validate: titleValidators },
   text: { type: String, required: true, validate: textValidators },
+  image: { type: String },
+  category: { type: String, required: true },
   createdBy: { type: String, required: true },
   createdAt: {
     fullDate: { type: Date, default: Date.now() },

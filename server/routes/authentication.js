@@ -1,5 +1,16 @@
 const express = require('express');
 const router = express.Router();
+var multer = require('multer');
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, './client/src/assets/img/avatars/')
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.originalname)
+    }
+})
+
+var upload = multer({ storage: storage })
 
 const userModel = require('../models/user');
 const jwt = require('jsonwebtoken');
@@ -9,48 +20,98 @@ router.get('/', (req, res) => {
     res.send('Authentication working!');
 });
 
-router.post('/register', (req, res) => {
-    if (!req.body.email) {
+router.post('/register', upload.any(), (req, res) => {
+    let newUser = JSON.parse(req.body.user);
+
+    if (!newUser.email) {
         res.json({ success: false, message: "You must provide an email address" })
     } else {
-        if (!req.body.username) {
+        if (!newUser.username) {
             res.json({ success: false, message: "You must provide a username" })
         } else {
-            if (!req.body.password) {
+            if (!newUser.password) {
                 res.json({ success: false, message: "You must provide a password" })
             } else {
-                let user = new userModel({
-                    email: req.body.email.toLowerCase(),
-                    username: req.body.username.toLowerCase(),
-                    password: req.body.password
-                });
-                user.save((err) => {
-                    if (err) {
-                        if (err.code === 11000) {
-                            res.json({ success: false, message: "Username or email already exists" });
+                if(!newUser.securityQuestion) {
+                    res.json({ success: false, message: "You must provide a security question" })
+                } else {
+                    if (!newUser.firstname) {
+                        res.json({ success: false, message: "You must provide a firstname" })
+                    } else {
+                        if (!newUser.lastname) {
+                            res.json({ success: false, message: "You must provide a lastname" })
                         } else {
-                            if (err.errors) {
-                                if (err.errors.email) {
-                                    res.json({ success: false, message: err.errors.email.message });
-                                } else {
-                                    if (err.errors.username) {
-                                        res.json({ success: false, message: err.errors.username.message });
-                                    } else {
-                                        if (err.errors.password) {
-                                            res.json({ success: false, message: err.errors.password.message });
+                            if(!newUser.gender) {
+                                res.json({ success: false, message: "You must provide a gender" })
+                            }else {
+                                // Save User
+                                let user = new userModel({
+                                    email: newUser.email.toLowerCase(),
+                                    username: newUser.username,
+                                    password: newUser.password,
+                                    securityQuestion: newUser.securityQuestion,
+                                    firstname: newUser.firstname,
+                                    lastname: newUser.lastname,
+                                    aboutme: newUser.aboutme,
+                                    gender: newUser.gender,
+                                    avatar: req.files[0].originalname,
+                                    birthday: {
+                                        day: newUser.birthday.day,
+                                        month: newUser.birthday.month,
+                                        year: newUser.birthday.year
+                                    },
+                                    address: newUser.address,
+                                    state: newUser.state,
+                                    phone: newUser.phone
+                                });
+                                user.save((err) => {
+                                    if (err) {
+                                        if (err.code === 11000) {
+                                            res.json({ success: false, message: "Username or email already exists" });
                                         } else {
-                                            res.json({ success: false, message: err });
+                                            if (err.errors) {
+                                                if (err.errors.email) {
+                                                    res.json({ success: false, message: err.errors.email.message });
+                                                } else {
+                                                    if (err.errors.username) {
+                                                        res.json({ success: false, message: err.errors.username.message });
+                                                    } else {
+                                                        if (err.errors.password) {
+                                                            res.json({ success: false, message: err.errors.password.message });
+                                                        } else {
+                                                            if (err.errors.securityQuestion) {
+                                                                res.json({ success: false, message: err.errors.securityQuestion.message });
+                                                            } else {
+                                                                if (err.errors.firstname) {
+                                                                    res.json({ success: false, message: err.errors.firstname.message });
+                                                                } else {
+                                                                    if (err.errors.lastname) {
+                                                                        res.json({ success: false, message: err.errors.lastname.message });
+                                                                    } else {
+                                                                        if(err.errors.gender) {
+                                                                            res.json({ success: false, message: err.errors.gender.message });
+                                                                        } else {
+                                                                            res.json({ success: false, message: err+'DDD' });
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            } else {
+                                                res.json({ success: false, message: "Could not save user. Error: ", err });
+                                            }
                                         }
+                                    } else {
+                                        res.json({ success: true, message: "Registration completed successfully!" });
                                     }
-                                }
-                            } else {
-                                res.json({ success: false, message: "Could not save user. Error: ", err });
+                                });
+                               ///////  Save user end ///////
                             }
                         }
-                    } else {
-                        res.json({ success: true, message: "Registration completed successfully!" });
-                    }
-                });
+                    }  
+                }
             }
         }
     }
@@ -137,7 +198,7 @@ router.use((req, res, next) => {
 });
 
 router.get('/profile', (req, res) => {
-    userModel.findOne({ _id: req.decoded.userId }).select('email username').exec((err, user) => {
+    userModel.findOne({ _id: req.decoded.userId }, (err, user) => {
         if (err) {
             res.json({ success: false, message: err });
         } else {

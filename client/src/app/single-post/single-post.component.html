@@ -1,3 +1,42 @@
-<p>
-  single-post works!
-</p>
+<section class="single-post">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8">
+
+        <!-- Post  -->
+        <div class="post-item" *ngIf="post">
+          <div class="image-post" style="background-image: url('assets/img/s1-min.jpg')"></div>
+          <div class="info-post">
+            <div class="row">
+
+              <!-- Date and title -->
+              <div class="col-lg-12">
+                <div class="title_and_date">
+                  <h3 class="post-title">{{ post.title }}</h3>
+                  <div class="date">{{ post.createdAt.fullDate | date: 'dd' }} <span>{{ post.createdAt.month }}</span></div>
+                </div>
+              </div>
+
+              </div>
+
+            <div class="row">
+              <!-- Info -->
+              <div class="col-lg-12">
+                <p class="post-text" [innerHtml]="post.text | keepHtml"></p>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+        <!-- End post -->
+
+      </div>
+
+      <!-- Sidebar -->
+      <div class="col-lg-4">
+        <app-sidebar></app-sidebar>
+      </div>
+    </div>
+  </div>
+</section>

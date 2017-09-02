@@ -1,0 +1,86 @@
+.single-post {
+  width: 100%;
+  min-height: 500px;
+  background-image: url('../../assets/img/main-bg.jpg');
+  background-repeat: repeat;
+  padding: 50px 0;
+}
+
+.single-post .post-item {
+  margin-bottom: 50px;
+}
+
+.single-post .image-post {
+  width: 100%;
+  height: 300px;
+  background-position: center;
+  background-size: cover;
+  border: 10px solid rgba(39, 39, 39, 0.8);
+}
+
+.single-post .post-title {
+  color: #c7e5f6;
+  font-size: 18px;
+  font-family: 'CaviarDreams', sans-serif;
+  text-transform: uppercase;
+}
+
+.single-post .title_and_date {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  border-bottom: 1px dashed #353536;
+  padding: 15px;
+  margin-bottom: 20px;
+  background-color: rgba(39, 39, 39, 0.5);
+  box-sizing: border-box;
+}
+
+.single-post .date{
+  color: #c7e5f6;
+  font-size: 18px;
+  font-family: 'CaviarDreams',
+  sans-serif;
+  text-transform: uppercase;
+
+}
+
+
+.single-post .author_category .fa {
+  color: #c7e5f6;
+  margin-right: 6px;
+}
+
+.single-post .author_category span {
+  color: #c7e5f6;
+  text-transform: uppercase;
+  font-size: 13px;
+  font-family: 'MuseoSansCyrl_0', sans-serif;
+  margin-right: 25px;
+}
+
+.single-post .author_category a {
+  color: #c7e5f6;
+  text-transform: uppercase;
+  font-size: 13px;
+  font-family: 'MuseoSansCyrl_0', sans-serif;
+  text-decoration: none;
+}
+
+.single-post .post-text {
+  color: #c7e5f6;
+  font-size: 16px;
+  font-family: 'MuseoSansCyrl_0', sans-serif;
+  line-height: 1.5;
+  padding-bottom: 45px;
+  border-bottom: 1px dashed #353536;
+}
+
+.single-post .read-more {
+  color: #2096da;
+  font-size: 15px;
+  font-family: 'MuseoSansCyrl_0', sans-serif;
+  text-decoration: none;
+}
+
+

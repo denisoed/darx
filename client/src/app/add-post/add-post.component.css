@@ -62,6 +62,73 @@
   color: #c3c2c2;
 }
 
+.add-post form button {
+  background-color:#2096da;
+  color: #c7e5f6;
+  width: 100px;
+  cursor: pointer;
+  border: none;
+  padding: 15px;
+  margin: 0 auto;
+  font-family: 'MuseoSansCyrl_0', sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+
+}
+
+/* DropDown */
+.add-post .category-dropdown{
+  min-width: 210px;
+  cursor: pointer;
+  margin-top: 30px;
+  align-self: flex-start;
+}
+
+.add-post .category-dropdown:hover .list-dropdown-items {
+  display: block;
+}
+
+.add-post .category-dropdown .list-dropdown-items li:hover {
+  background-color: #c7e5f6;
+  color: #272727;
+  font-weight: bold;
+}
+
+.add-post .category-inp{
+  background-color: #2096da;
+  color: #c7e5f6;
+  padding: 8px;
+  font-family: 'MuseoSansCyrl_0', sans-serif;
+  font-size: 16px;
+
+}
+
+.add-post .category-inp .fa{
+  margin-left: 8px;
+  float: right;
+}
+
+.add-post .category-dropdown .list-dropdown-items {
+  display: none;
+  margin-top: 8px;
+  padding: 0 8px;
+  box-sizing: border-box;
+
+}
+
+.add-post .category-dropdown ul li{
+  list-style: none;
+  color: #c7e5f6;
+  padding: 4px 6px;
+  box-sizing: border-box;
+  font-family: 'MuseoSansCyrl_0',sans-serif;
+  font-size: 16px;
+  margin-bottom: 6px;
+  background-color: #2096da;
+  transition: all .3s ease;
+}
+
+
 /* Help Block warning */
 
 .add-post .help-block-warning .fa {

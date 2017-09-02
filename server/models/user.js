@@ -67,17 +67,17 @@ const usernameValidators = [{
 ];
 
 // Password validate
-let passwordLengthCkecker = (password) => {
+let passwordLengthChecker = (password) => {
     if (!password) {
         return false;
     } else {
-        if (password.length < 8 || password.length > 35) {
+        if (password.length < 3 || password.length > 15) {
             return false;
         } else {
             return true;
         }
     }
-}
+};
 
 let validPassword = (password) => {
     if (!password) {
@@ -89,7 +89,7 @@ let validPassword = (password) => {
 }
 
 const passwordValidators = [{
-        validator: passwordLengthCkecker,
+        validator: passwordLengthChecker,
         message: 'Password must be at least 8 characters but no more then 35'
     },
     {
@@ -97,11 +97,78 @@ const passwordValidators = [{
         message: 'Must have all least one uppercase, lowercase, special characters, and number'
     }
 ];
+
+let firstnameLengthChecker = (firstname) => {
+    if (!firstname) {
+        return false;
+    } else {
+        if (firstname.length < 3 || firstname.length > 15) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+};
+
+const firstnameLengthValidators = [{
+    validator: firstnameLengthChecker,
+    message: 'Firstname must be at least 1 characters but no more then 15'
+}];
+
+let lastnameLengthChecker = (lastname) => {
+    if (!lastname) {
+        return false;
+    } else {
+        if (lastname.length < 3 || lastname.length > 15) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+};
+
+const lastnameLengthValidators = [{
+    validator: lastnameLengthChecker,
+    message: 'Lastname must be at least 1 characters but no more then 15'
+}];
+
+let securityQuestionLengthChecker = (securityQuestion) => {
+    if (!securityQuestion) {
+        return false;
+    } else {
+        if (securityQuestion.length < 3 || securityQuestion.length > 15) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+};
+
+const securityQuestionLengthValidators = [{
+    validator: securityQuestionLengthChecker,
+    message: 'SecurityQuestion must be at least 1 characters but no more then 15'
+}];
+
 mongoose.Promise = global.Promise;
 const userSchema = new Schema({
     email: { type: String, required: true, unique: true, lowercase: true, validate: emailValidators },
     username: { type: String, required: true, unique: true, lowercase: true, validate: usernameValidators },
-    password: { type: String, required: true, validate: passwordValidators }
+    password: { type: String, required: true, validate: passwordValidators },
+    securityQuestion: { type: String, required: true, validate: securityQuestionLengthValidators },
+    firstname: { type: String, required: true, validate: firstnameLengthValidators },
+    lastname: { type: String, required: true, validate: lastnameLengthValidators },
+    gender: { type: String, required: true },
+    aboutme: { type: String },
+    avatar: { type: String },
+    birthday: {
+        day: { type: Number },
+        month: { type: String },
+        year: { type: Number }
+    },
+    address: { type: String },
+    city: { type: String },
+    state: { type: String },
+    phone: { type: String },
 });
 
 userSchema.pre('save', function(next) {

@@ -11,7 +11,7 @@ import { AuthService } from './services/auth.service';
 
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
-import { BlogSidebarComponent, EscapeHtmlPipe } from './blog-sidebar/blog-sidebar.component';
+import { BlogSidebarComponent, EscapeHtmlPipe, SlicePipe } from './blog-sidebar/blog-sidebar.component';
 import { HomeComponent } from './home/home.component';
 import { ContactComponent } from './contact/contact.component';
 import { NewsComponent } from './news/news.component';
@@ -43,7 +43,8 @@ import { PostService } from "./services/post.service";
     SidebarComponent,
     SinglePostComponent,
     AddPostComponent,
-    EscapeHtmlPipe
+    EscapeHtmlPipe,
+    SlicePipe
   ],
   imports: [
     BrowserModule,

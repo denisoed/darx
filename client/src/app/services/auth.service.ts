@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions } from '@angular/http';
+import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import { tokenNotExpired } from 'angular2-jwt';
 
@@ -37,8 +38,13 @@ export class AuthService {
     localStorage.clear();
   }
 
-  registerUser(user) {
-    return this.http.post(this.domain + 'authentication/register', user).map(res => res.json());
+  registerUser(user) { 
+
+    let formData: FormData = new FormData();
+    formData.append('user', JSON.stringify(user));
+    formData.append('avatar', user.avatar);
+
+    return this.http.post(this.domain + 'authentication/register', formData).map(res => res.json());
   }
   
   checkEmail(email) {
