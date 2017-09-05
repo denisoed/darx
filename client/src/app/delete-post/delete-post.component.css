@@ -1,0 +1,82 @@
+.delete-post {
+  width: 100%;
+  min-height: 500px;
+  background-image: url('../../assets/img/main-bg.jpg');
+  background-repeat: repeat;
+  padding: 50px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.delete-post .delete-message{
+  background-color: rgba(39, 39, 39, 0.5);
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.5);
+  margin-bottom: 30px;
+}
+
+.delete-post .delete-message h4{
+  color: #c7e5f6;
+  font-family: 'MuseoSansCyrl_0',
+  sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 8px 12px;
+}
+
+.delete-post .delete-message h4 span{
+  color: #2096da;
+  font-size: 24px;
+}
+
+.delete-post .delete-btns button {
+  color: #c7e5f6;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 4px 8px;
+  font-family: 'MuseoSansCyrl_0',
+  sans-serif;
+  font-size: 18px;
+}
+
+.delete-post .delete-btns .delete-yes {
+  background-color: #2096da;
+  margin-right: 15px;
+}
+
+.delete-post .delete-btns .delete-cancel {
+  background-color: #ec4444;
+}
+
+.for-message{
+  margin-bottom: 30px;
+}
+
+.delete-post-warning {
+  width: 100%;
+  padding: 15px 20px;
+  background-color: #ec4444;
+  color: #c7e5f6;
+  font-family: 'MuseoSansCyrl_0', sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-top: 15px;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.5);
+}
+
+.delete-post-success {
+  width: 100%;
+  padding: 15px 20px;
+  background-color: #2096da;
+  color: #c7e5f6;
+  font-family: 'MuseoSansCyrl_0', sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-top: 15px;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.5);
+}

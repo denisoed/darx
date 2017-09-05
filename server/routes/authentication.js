@@ -13,7 +13,7 @@ var storage = multer.diskStorage({
 var upload = multer({ storage: storage })
 
 const userModel = require('../models/user');
-const jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken'); 
 const config = require('../../config/database');
 
 router.get('/', (req, res) => {
@@ -91,7 +91,7 @@ router.post('/register', upload.any(), (req, res) => {
                                                                         if(err.errors.gender) {
                                                                             res.json({ success: false, message: err.errors.gender.message });
                                                                         } else {
-                                                                            res.json({ success: false, message: err+'DDD' });
+                                                                            res.json({ success: false, message: err`` });
                                                                         }
                                                                     }
                                                                 }

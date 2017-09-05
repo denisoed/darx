@@ -9,6 +9,7 @@ import {
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PostService } from "../services/post.service";
 import { AuthService } from "../services/auth.service";
+import { Router } from "@angular/router";
 declare var tinymce: any;
 
 @Component({
@@ -21,6 +22,7 @@ export class AddPostComponent implements OnInit, AfterViewInit, OnDestroy {
   form: FormGroup;
   message;
   messageClass;
+  skinUrl: string = '/assets/';
   editor;
   elementId = 'post-editor';
   content;
@@ -41,7 +43,7 @@ export class AddPostComponent implements OnInit, AfterViewInit, OnDestroy {
       plugins: ['paste', 'table', 'image', 'link', 'preview', 'textcolor', 'print', 'media'],
       toolbar1: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
       toolbar2: "print preview media | forecolor backcolor",
-      skin_url: 'assets/tinymce/skins/lightgray',
+      skin_url: this.skinUrl + 'tinymce/skins/lightgray',
       setup: editor => {
         this.editor = editor;
         editor.on('keyup', () => {
@@ -58,7 +60,8 @@ export class AddPostComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private formBuilder: FormBuilder,
     private postService: PostService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {
     this.createForm();
    }
@@ -96,6 +99,9 @@ export class AddPostComponent implements OnInit, AfterViewInit, OnDestroy {
       } else {
         this.message = data.message;
         this.messageClass = 'post-success'
+        setTimeout(() => {
+          this.router.navigate(['/post/' + data.post._id]);
+        }, 1000);
       }
     })
   }

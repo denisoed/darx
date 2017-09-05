@@ -53,9 +53,9 @@ export class LoginComponent implements OnInit {
           if(this.previousUrl) {
             this.router.navigate([this.previousUrl]);
           }else{
-            this.router.navigate(['/home']);
+            this.router.navigate(['/profile']);
           }
-        }, 2000);
+        }, 500);
       }
     })
   }

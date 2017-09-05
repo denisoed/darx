@@ -19,19 +19,20 @@ export class PostService {
     // Headers configuration options
     this.options = new RequestOptions({
       headers: new Headers({
-        'Content-Type': 'application/json', // Format set to JSON
+        'Accept': 'application/json', // Format set to JSON
         'authorization': this.authService.authToken // Attach token
       })
     });
   }
 
   createPost(post) {
-    
+    this.createAuthenticationHeaders(); 
+
     let formData: FormData = new FormData();
     formData.append('post', JSON.stringify(post));
     formData.append('imagePost', post.image);
 
-    return this.http.post(this.domain + 'post/add-post', formData).map(res => res.json());
+    return this.http.post(this.domain + 'post/add-post', formData, this.options).map(res => res.json());
   }
 
   getAllPosts() {
@@ -47,6 +48,21 @@ export class PostService {
   getUserPosts(id) {
     this.createAuthenticationHeaders();
     return this.http.get(this.domain + 'post/user-posts/' + id, this.options).map(res => res.json());
+  }
+  
+  editPost(post) {
+    this.createAuthenticationHeaders();
+    let formData: FormData = new FormData();
+
+    formData.append('post', JSON.stringify(post));
+    formData.append('image', post.image);
+    return this.http.put(this.domain + 'post/update-post/', formData, this.options).map(res => res.json());
+  }
+
+  deletePost(id) {
+    this.createAuthenticationHeaders();
+
+    return this.http.delete(this.domain + 'post/delete-post/' + id, this.options).map( res => res.json());
   }
 
 }

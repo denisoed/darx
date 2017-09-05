@@ -15,6 +15,8 @@ import { AuthGuard } from "./guards/auth.guard";
 import { NotAuthGuard } from "./guards/notAuth.guard";
 import { AddPostComponent } from "./add-post/add-post.component";
 import { SinglePostComponent } from "./single-post/single-post.component";
+import { EditPostComponent } from "./edit-post/edit-post.component";
+import { DeletePostComponent } from "./delete-post/delete-post.component";
 
 
 export const routes: Routes = [
@@ -67,6 +69,16 @@ export const routes: Routes = [
   {
     path: 'post/:id',
     component: SinglePostComponent, 
+    canActivate: [AuthGuard] // User must be logge din to view this route
+  },
+  {
+    path: 'edit-post/:id',
+    component: EditPostComponent, 
+    canActivate: [AuthGuard] // User must be logge din to view this route
+  },
+  {
+    path: 'delete-post/:id',
+    component: DeletePostComponent, 
     canActivate: [AuthGuard] // User must be logge din to view this route
   },
   {

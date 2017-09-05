@@ -7,7 +7,14 @@
                     <div class="about-me-info">
                         <h4 class="my-name">{{ user.firstname }} {{ user.lastname }}</h4>
                         <p class="desc">{{ user.aboutme }}</p>
-
+                        <div class="sidebar-profile">
+                            <button routerLink="/add-new-post" class="add-new-post">Add new post</button>
+                            <ul class="info-my-posts">
+                                <li><span>{{ userAllPosts.length }}</span>Posts</li>
+                                <li><span>0</span>Likes</li>
+                                <li><span>0</span>Dislikes</li>
+                            </ul>
+                        </div>
                         <h5 class="contact-info">Basic information</h5>
                         <ul class="contacts">
                             <li><span>Birthday: </span>{{ user.birthday.month }} {{ user.birthday.day }}, {{ user.birthday.year }}</li>
@@ -22,20 +29,11 @@
                             <li><span>Address: </span> {{ user.address }}</li>
                         </ul>
                     </div>
-                    <div class="sidebar-profile">
-                        <button routerLink="/add-new-post" class="add-new-post">Add new post</button>
-                        <ul class="info-my-posts">
-                            <li>Total posts: <span>{{ userAllPosts.length }}</span></li>
-                            <li>Total likes: <span></span></li>
-                            <li>Total dislikes: <span></span></li>
-                        </ul>
-                </div>
                 </div>
             </div>
             <div class="col-lg-8">
+                <h2 class="my-posts-title">My posts</h2>
                 <div class="my-posts">
-                    <h3>My posts</h3>
-
                     <!-- Post  -->
                     <div class="post-item" *ngFor="let post of userAllPosts">
                         <div class="image-post" [ngStyle]="{'background-image': 'url(../../assets/img/posts/' + post.image + ')'}"></div>
@@ -52,15 +50,17 @@
 
                                 <!-- Info -->
                                 <div class="col-lg-10">
-                                    <a [routerLink]="['/post/', post._id]">
-                                        <h3 class="post-title">{{ post.title }}</h3>
+                                    <a [routerLink]="['/post/', post._id]" class="post-title">
+                                        <h3>{{ post.title }}</h3>
                                     </a>
                                     <div class="author_category">
                                         <span><i class="fa fa-user"></i> {{ post.createdBy }}</span>
                                         <a href="#"><i class="fa fa-bars"></i> {{ post.category }}</a>
                                     </div>
-                                    <p class="post-text" [innerHtml]="post.text | slice | keepHtml"></p>
-                                    <a [routerLink]="['/post/', post._id]" class="read-more">Read more</a>
+                                    <div class="update_and_delete">
+                                        <button [routerLink]="['/edit-post/', post._id]" class="update-post">Update post</button>
+                                        <button [routerLink]="['/delete-post/', post._id]" class="delete-post">Delete post</button>
+                                    </div>
                                 </div>
 
                             </div>

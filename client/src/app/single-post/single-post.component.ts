@@ -11,6 +11,8 @@ export class SinglePostComponent implements OnInit {
 
   currentUrl;
   post;
+  messageClass;
+  message;
 
   constructor(
     private postService: PostService,
@@ -20,11 +22,12 @@ export class SinglePostComponent implements OnInit {
   ngOnInit() {
     this.currentUrl = this.activatedRoute.snapshot.params;
     this.postService.getSinglePost(this.currentUrl.id).subscribe(data => {
-      this.post = data.post;
-    }, (err)=> {
-      if(err) {
-        console.log(err);
-      }
+      if (!data.success) {
+        this.messageClass = 'single-post-warning';
+        this.message = data.message;
+      } else {
+        this.post = data.post;
+      } 
     });
   }
 

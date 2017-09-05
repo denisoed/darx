@@ -83,24 +83,32 @@
     margin-top: 15px;
 }   
 
+.profile .info-my-posts{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
 .profile .sidebar-profile li {
+    width: 31%;
     list-style: none;
     color: #c7e5f6;
     font-weight: bold;
     font-size: 14px;
-    margin-bottom: 8px;
+    padding: 8px 0;
     font-family: 'CaviarDreams', sans-serif;
-}
-
-.profile .sidebar-profile li:last-child {
-    margin-bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #323233;
 }
 
 .profile .sidebar-profile  li span {
-    margin-right: 15px;
+    margin-bottom: 4px;
     color: #2096da;
-    font-size: 13px;
+    font-size: 15px;
     font-family: 'MuseoSansCyrl_0', sans-serif;
+    font-weight: bold;
 }
 
 
@@ -116,16 +124,38 @@
     font-size: 16px;
     font-weight: bold;
     margin-bottom: 15px;
+  }
+  
+/* My post */
+.profile .my-posts-title{
+  text-align: center;
+  color: #c7e5f6;
+  margin-bottom: 30px;
+  font-family: 'MuseoSansCyrl_0', sans-serif;
+  text-transform: uppercase;
+  font-size: 24px;
+  font-weight: bold;
+  background-color: rgba(39, 39, 39, 0.5);
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.5);
+  padding: 10px 0;
 }
+
+.profile .my-posts{
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
 
 /* Post style */
 .profile .post-item {
   margin-bottom: 50px;
+  width: 45%;
 }
 
 .profile .image-post {
   width: 100%;
-  height: 300px;
+  height: 200px;
   background-position: center;
   background-size: cover;
   outline: 10px solid rgba(39, 39, 39, 0.8);
@@ -133,18 +163,21 @@
 }
 
 .profile .post-title {
-  color: #c7e5f6;
+  color: #2096da;
   font-size: 18px;
   font-family: 'CaviarDreams', sans-serif;
   text-transform: uppercase;
+  font-weight: bold;
+  text-align: right;
+  margin-top: 10px;
 }
 
 .profile .author_category {
   display: flex;
+  justify-content: flex-end;
   width: 100%;
   border-bottom: 1px dashed #353536;
   padding: 15px 0;
-  margin-bottom: 20px;
 }
 
 .profile .author_category .fa {
@@ -251,5 +284,29 @@
   border-style: solid;
   border-width: 10px 0 10px 20px;
   border-color: transparent transparent transparent #2096da;
+}
+
+.profile .update_and_delete{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+}
+
+.profile .update_and_delete button{
+  color: #c7e5f6;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 4px 8px;
+}
+
+.profile .update_and_delete .update-post {
+  background-color: #2096da;
+}
+
+.profile .update_and_delete .delete-post {
+  background-color: #ec4444;
+
 }
 

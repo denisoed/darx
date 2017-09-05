@@ -37,7 +37,7 @@ header .logo {
     background-color: #2096da;
 }
 
-header .info_and_nav {
+header .top-nav_and_nav {
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -45,57 +45,96 @@ header .info_and_nav {
     align-items: flex-end
 }
 
-header .info {
+header .top-nav{
+    margin-top: 4px;
     display: flex;
     align-items: center;
-    flex-basis: 50%;
 }
 
-header .phone {
-    font-size: 15px;
-    color: #777;
-    font-weight: bold;
-    font-family: 'MuseoSansCyrl_0', sans-serif;
-    margin-right: 15px;
-}
-
-header .info a {
-    background-color: #777;
-    border-radius: 100%;
-    padding: 15px;
+/* Accont menu */
+header .account-menu{
+    display: flex;
+    flex-direction: column;
+    margin-left: 30px;
     position: relative;
+}
+
+header .account-menu_link{
+    border-bottom: 2px solid #2096da;
+    cursor: pointer;
+}
+
+header .account-menu_link span{
+    color: #c7e5f6;
+    font-size: 16px;
+    font-family: 'MuseoSansCyrl_0', sans-serif;
+}
+
+header .account-menu_link .fa{
+    color: #c7e5f6;
+    font-size: 18px;
     margin-left: 6px;
 }
 
-header .social-icons {
+header .account-menu_dropdown {
+    background-color: rgba(39, 39, 39, 1);
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.5);
     display: flex;
-    align-items: baseline;
-}
-
-header .fa {
+    flex-direction: column;
+    padding-bottom: 8px;
     position: absolute;
-    color: #c7e5f6;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    top: 100%;
+    left: 0;
 }
 
-header .info_and_nav .navbar {
+header .account-menu_dropdown a{
+    margin-top: 8px;
+    cursor: pointer;
+}
+
+header .help-link a{
+    font-size: 15px;
+}
+
+header .top-nav .reg-link {
+    position: relative;
+}
+
+header .top-nav .reg-link::after{
+    content: '';
+    display: block;
+    width: 1px;
+    height: 15px;
+    background-color: #c7e5f6;
+    position: absolute;
+    right: -2px;
+    top: 4px;
+    transform: rotate(15deg);
+}   
+
+header .top-nav a{
+    color: #c7e5f6;
+    padding: 0 8px;
+}
+
+header .top-nav .active{
+    background-color: transparent;
+    color: #2096da;
+    font-weight: bold;
+}
+
+
+header .top-nav_and_nav .navbar {
     display: flex;
 }
 
-header .info_and_nav .navbar a {
+header .top-nav_and_nav .navbar a {
     color: #c7e5f6;
     padding: 8px 25px;
     box-sizing: border-box;
     font-size: 18px;
     text-transform: uppercase;
 }
-
-
-/* header .info_and_nav .navbar a:hover {
-    border: 2px solid #2096da;
-} */
 
 .active {
     background-color: #2096da;

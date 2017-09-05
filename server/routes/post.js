@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const postModel = require('../models/post');
 const userModel = require('../models/user');
+
 var multer = require('multer');
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -13,7 +14,25 @@ var storage = multer.diskStorage({
 })
 
 var upload = multer({ storage: storage })
+const jwt = require('jsonwebtoken');
+const config = require('../../config/database');
 
+
+router.use((req, res, next) => {
+  const token = req.headers['authorization'];
+  if (!token) {
+    res.json({ success: false, message: 'No token provided' });
+  } else {
+    jwt.verify(token, config.secret, (err, decoded) => {
+      if (err) {
+        res.json({ success: false, message: 'Token invalid: ' + err });
+      } else {
+        req.decoded = decoded;
+        next();
+      }
+    });
+  }
+});
 
 
 // Get all post
@@ -43,7 +62,21 @@ router.get('/single-post/:id', (req, res) => {
         if (!post) {
           res.json({ success: false, message: 'Post not found' });
         } else {
-          res.json({ success: true, post: post });
+          userModel.findOne({ _id: req.decoded.userId }, (err, user)=> {
+            if(err) {
+              res.json({ success: false, message: err});
+            } else {
+              if(!user) {
+                res.json({ success: false, message: 'Unable to authenticate user' });
+              } else {
+                if( user.username !== post.createdBy ) {
+                  res.json({ success: false, message: 'You are not authorized to edit this post' });
+                } else {
+                  res.json({ success: true, post: post });
+                }
+              }
+            }
+          });
         }
       }
     });
@@ -80,7 +113,7 @@ router.post('/add-post', upload.any(), (req, res) => {
                 category: newPost.category,
                 createdBy: newPost.createdBy
               });
-              post.save((err) => {
+              post.save((err, post) => {
                 if (err) {
                   if (err.errors) {
                     if (err.errors.foreignKey) {
@@ -109,10 +142,14 @@ router.post('/add-post', upload.any(), (req, res) => {
                       }
                     }
                   } else {
-                    res.json({ success: false, message: JSON.stringify(err) });
+                    if(!post) {
+                      res.json({ success: false, message: 'Post was not found' });
+                    } else {
+                      res.json({ success: false, message: err });
+                    }
                   }
                 } else {
-                  res.json({ success: true, message: 'Post saved!' });
+                  res.json({ success: true, message: 'Post saved!', post: post });
                 }
               });
             }
@@ -140,6 +177,102 @@ router.get('/user-posts/:id', (req, res)=> {
       }
     });
 
+  }
+});
+
+// Update post
+router.put('/update-post', upload.any(), (req, res)=> {
+  console.log(req.files.length);
+  let updatePost = JSON.parse(req.body.post);
+  if (!updatePost._id) {
+    res.json({ success: false, message: 'No post ID was provided for /update-post/:id' });
+  } else {
+    postModel.findOne({ _id: updatePost._id }, (err, post)=> {
+      if(err) {
+        res.json({ success: false, message: 'Not a valid post ID'});
+      } else {
+        if (!post) {
+          res.json({ success: false, message: 'Post ID was not found' });
+        } else {
+          userModel.findOne({ _id: req.decoded.userId }, (err, user)=> {
+            if(err) {
+              res.json({ success: false, message: err });
+            } else {
+              if(!user) {
+                res.json({ success: false, message: 'Unable to authenticate user'});
+              } else {
+                if(user.username !== post.createdBy) {
+                  res.json({ success: false, message: 'You are not authorized to edit this blog post' });
+                } else {
+                  if (req.files.length == 0) {
+                    post.title = updatePost.title,
+                    post.text = updatePost.text,
+                    post.category = updatePost.category,
+                    post.save((err) => {
+                      if (err) {
+                        res.json({ success: false, message: err });
+                      } else {
+                        res.json({ success: true, message: 'Post updated!' });
+                      }
+                    });
+                  } else {
+                    post.title = updatePost.title,
+                    post.image = req.files[0].originalname,
+                    post.text = updatePost.text,
+                    post.category = updatePost.category,
+                    post.save((err) => {
+                      if (err) {
+                        res.json({ success: false, message: err });
+                      } else {
+                        res.json({ success: true, message: 'Post updated!' });
+                      }
+                    });
+                  }
+                }
+              }
+            }
+          });
+        }
+      }
+    });
+  }
+});
+
+router.delete('/delete-post/:id', (req, res)=> {
+  if(!req.params.id) {
+    res.json({ success: false, message: 'No ID provided'});
+  } else {
+    postModel.findOne({ _id: req.params.id }, (err, post)=> {
+      if(err) {
+        res.json({ success: false, message: err });
+      }else {
+        if(!post) {
+          res.json({ success: false, message: 'Post was not found' });
+        } else {
+          userModel.findOne({ _id: req.decoded.userId }, (err, user)=> {
+            if(err) {
+              res.json({ success: false, message: err });
+            } else {
+              if(!user) {
+                res.json({ success: false, message: 'Unable to authenticate user' });
+              } else {
+                if(user.username !== post.createdBy) {
+                  res.json({ success: false, message: 'You are not authorized to delete this blog post' });
+                }else {
+                  post.remove((err)=> {
+                    if(err) {
+                      res.json({ success: false, message: err});
+                    } else {
+                      res.json({ success: true, message: 'Post deleted!'});
+                    }
+                  });
+                }
+              }
+            }
+          });
+        }
+      }
+    });
   }
 });
 

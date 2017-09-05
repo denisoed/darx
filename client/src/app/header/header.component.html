@@ -4,31 +4,28 @@
             <a href="/" class="logo">
                 Darx
             </a>
-            <div class="info_and_nav">
-                <div class="info">
-                    <p class="phone">
-                        Call us: +123 456 789 321
-                    </p>
-                    <div class="social-icons">
-                        <a href="#">
-                            <i class="fa fa-facebook"></i>
-                        </a>
-                        <a href="#">
-                            <i class="fa fa-twitter"></i>
-                        </a>
-                        <a href="#">
-                            <i class="fa fa-instagram"></i>
-                        </a>
-                        <a href="#">
-                            <i class="fa fa-google-plus"></i>
-                        </a>
-                        <a href="#">
-                            <i class="fa fa-youtube"></i>
-                        </a>
-                        <a href="#">
-                            <i class="fa fa-pinterest"></i>
-                        </a>
+            <div class="top-nav_and_nav">
+                <div class="top-nav">
+
+                    <div class="help-link">
+                        <a href="">Have questions?</a>
                     </div>
+
+                    <a *ngIf="!authService.loggedIn()" routerLink="/register" routerLinkActive="active" class="reg-link">Register</a>
+                    <a *ngIf="!authService.loggedIn()" routerLink="/login" routerLinkActive="active">Login</a>
+
+                    <!-- Account menu -->
+                    <div class="account-menu" *ngIf="authService.loggedIn()">
+                        <div class="account-menu_link">
+                            <span class="account-menu_username">Denis</span>
+                            <i class="fa fa-user"></i>
+                        </div>  
+                        <div class="account-menu_dropdown">
+                            <a  routerLink="/profile" routerLinkActive="active">Profile</a>
+                            <a (click)="onLogoutClick()">Logout</a>
+                        </div>
+                    </div>
+
                 </div>
                 <nav class="navbar">
 
@@ -37,10 +34,6 @@
                     <a routerLink="/blog" routerLinkActive="active">Blog</a>
                     <a routerLink="/features" routerLinkActive="active">Features</a>
                     <a routerLink="/contact" routerLinkActive="active">Contact</a>
-                    <a *ngIf="!authService.loggedIn()" routerLink="/register" routerLinkActive="active">Register</a>
-                    <a *ngIf="!authService.loggedIn()" routerLink="/login" routerLinkActive="active">Login</a>
-                    <a *ngIf="authService.loggedIn()" routerLink="/profile" routerLinkActive="active">Profile</a>
-                    <a href="#" (click)="onLogoutClick()">Logout</a>
 
                 </nav>
             </div>

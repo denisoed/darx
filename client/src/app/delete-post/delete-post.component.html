@@ -1,0 +1,17 @@
+<section class="delete-post" *ngIf="post">
+
+  <!-- Block for info message -->
+  <div class="for-message">
+    <div [ngClass]="messageClass">
+      {{ message }}
+    </div>
+  </div>
+
+  <div class="delete-message">
+    <h4>Are you sure you want to delete Post: <span>{{ post.title }} ?</span></h4>
+  </div>
+  <div class="delete-btns">
+    <button class="delete-yes" (click)="deletePost()">Yes, I am sure</button>
+    <button [routerLink]="['/profile']" class="delete-cancel">Cancel</button>
+  </div>
+</section>
