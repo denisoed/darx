@@ -35,6 +35,13 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  closeMessage(time) {
+    setTimeout(() => {
+      this.message = null;
+      this.messageClass = null;
+    }, time);
+  }
+
   onLoginSubmit(){
     const user = {
       email: this.form.get('email').value,
@@ -43,11 +50,13 @@ export class LoginComponent implements OnInit {
 
     this.authService.login(user).subscribe(data => {
       if(!data.success) {
-        this.messageClass = 'login-warning';
+        this.messageClass = 'login-warning bounceInRight';
         this.message = data.message;
+        this.closeMessage(3000);
       }else {
-        this.messageClass = 'login-success';
+        this.messageClass = 'login-success bounceInRight';
         this.message = data.message;
+        this.closeMessage(3000);
         this.authService.storeUserData(data.token, data.user);
         setTimeout(() => {
           if(this.previousUrl) {
@@ -55,7 +64,7 @@ export class LoginComponent implements OnInit {
           }else{
             this.router.navigate(['/profile']);
           }
-        }, 500);
+        }, 1000);
       }
     })
   }

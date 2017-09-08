@@ -65,4 +65,36 @@ export class PostService {
     return this.http.delete(this.domain + 'post/delete-post/' + id, this.options).map( res => res.json());
   }
 
+  likePost(id) {
+    this.createAuthenticationHeaders();
+    const postData = { id: id };
+    return this.http.put(this.domain + 'post/likePost/', postData, this.options).map(res => res.json());
+  }
+
+  dislikePost(id) {
+    this.createAuthenticationHeaders();
+    const postData = { id: id };
+    return this.http.put(this.domain + 'post/dislikePost/', postData, this.options).map(res => res.json());
+  }
+
+  postNewComment(id, comment) {
+    this.createAuthenticationHeaders();
+    const postData = {
+      id: id,
+      comment: comment
+    }
+    return this.http.post(this.domain + 'post/add-comment/', postData, this.options).map(res => res.json());
+  }
+
+  replyComment(postId, commentIndex, replyComment) {
+    this.createAuthenticationHeaders();
+    const postData = {
+      postId: postId,
+      commentIndex: commentIndex,
+      replyComment: replyComment
+    }
+
+    return this.http.post(this.domain + 'post/reply-comment/', postData, this.options).map(res => res.json());
+  }
+
 }

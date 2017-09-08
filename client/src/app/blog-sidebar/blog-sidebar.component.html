@@ -27,7 +27,7 @@
                                     <a href="#"><i class="fa fa-bars"></i> {{ post.category }}</a>
                                 </div>
                                 <p class="post-text" [innerHtml]="post.text | slice | keepHtml"></p>
-                                <a href="#" class="read-more">Read more</a>
+                                <a [routerLink]="['/post/', post._id]" class="read-more">Read more</a>
                             </div>
 
                         </div>

@@ -69,11 +69,11 @@ router.get('/single-post/:id', (req, res) => {
               if(!user) {
                 res.json({ success: false, message: 'Unable to authenticate user' });
               } else {
-                if( user.username !== post.createdBy ) {
-                  res.json({ success: false, message: 'You are not authorized to edit this post' });
-                } else {
-                  res.json({ success: true, post: post });
-                }
+                res.json({ success: true, post: post });
+                // if( user.username !== post.createdBy ) {
+                //   res.json({ success: false, message: 'You are not authorized to edit this post' });
+                // } else {
+                // }
               }
             }
           });
@@ -273,6 +273,221 @@ router.delete('/delete-post/:id', (req, res)=> {
         }
       }
     });
+  }
+});
+
+// Post like
+router.put('/likePost', (req, res)=> {
+  if(!req.body.id) {
+    res.json({ success: false, message: 'No ID was provided' });
+  } else {
+    postModel.findOne({ _id: req.body.id}, (err, post)=> {
+      if(err) {
+        res.json({ success: false, message: err });
+      } else {
+        if(!post) {
+          res.json({ success: false, message: 'That post was not found' });
+        } else {
+          userModel.findOne({ _id: req.decoded.userId }, (err, user)=> {
+            if(err) {
+              res.json({ success: false, message: err });
+            } else {
+              if (!user) {
+                res.json({ success: false, message: 'Could not authenticate user' });
+              } else {
+                if ( user.username == post.createdBy ) {
+                  res.json({ success: false, message: 'You can not rate your Posts' });
+                } else {
+                  if (post.likedBy.includes(user.username)) {
+                    res.json({ success: false, message: 'You already liked this post' });
+                  } else {
+                    if (post.dislikedBy.includes(user.username)) {
+                      post.dislikes--;
+                      const arrayIndex = post.dislikedBy.indexOf(user.username);
+                      post.dislikedBy.splice(arrayIndex, 1);
+                      post.likes++;
+                      post.likedBy.push(user.username);
+                      post.save((err) => {
+                        if (err) {
+                          res.json({ success: false, message: 'Something went wrong' });
+                        } else {
+                          res.json({ success: true, message: 'Post liked!' });
+                        }
+                      });
+                    } else {
+                      post.likes++;
+                      post.likedBy.push(user.username);
+                      post.save((err) => {
+                        if (err) {
+                          res.json({ success: false, message: 'Something went wrong' });
+                        } else {
+                          res.json({ success: true, message: 'Post liked!' });
+                        }
+                      });
+                    }
+                  }
+                }
+              }
+            }
+          });
+        }
+      }
+    });
+  }
+});
+
+// Dislike post
+router.put('/dislikePost', (req, res)=> {
+  if(!req.body.id) {
+    res.json({ success: false, message: 'No ID was provided' });
+  } else {
+    postModel.findOne({ _id: req.body.id}, (err, post)=> {
+      if(err) {
+        res.json({ success: false, message: err });
+      } else {
+        if(!post) {
+          res.json({ success: false, message: 'That post was not found' });
+        } else {
+          userModel.findOne({ _id: req.decoded.userId }, (err, user)=> {
+            if(err) {
+              res.json({ success: false, message: err });
+            } else {
+              if (!user) {
+                res.json({ success: false, message: 'Could not authenticate user' });
+              } else {
+                  if ( user.username == post.createdBy ) {
+                    res.json({ success: false, message: 'You can not rate your Posts' });
+                  } else {
+                    if (post.dislikedBy.includes(user.username)) {
+                      res.json({ success: false, message: 'You already disliked this post' });
+                    } else {
+                      if (post.likedBy.includes(user.username)) {
+                        post.likes--;
+                        const arrayIndex = post.likedBy.indexOf(user.username);
+                        post.likedBy.splice( arrayIndex, 1 );
+                        post.dislikes++;
+                        post.dislikedBy.push(user.username);
+                        post.save((err)=> {
+                          if(err) {
+                            res.json({ success: false, message: 'Something went wrong' });
+                          } else {
+                            res.json({ success: true, message: 'Post disliked!'});
+                          }
+                        });
+                      } else {
+                        post.dislikes++;
+                        post.dislikedBy.push(user.username);
+                        post.save((err) => {
+                          if (err) {
+                            res.json({ success: false, message: 'Something went wrong' });
+                          } else {
+                            res.json({ success: true, message: 'Post disliked!' });
+                        }
+                      });
+                    }
+                  }
+                }
+              }
+            }
+          });
+        }
+      }
+    });
+  }
+});
+
+router.post('/add-comment', (req, res)=> {
+  if(!req.body.comment) {
+    res.json({ success: false, message: 'No comment provided'});
+  } else {
+    if(!req.body.id) {
+      res.json({ success: false, message: 'No ID was provided' });
+    } else {
+      postModel.findOne({ _id: req.body.id }, (err, post)=> {
+        if(err) {
+          res.json({ success: false, message: 'Invalid post ID' });
+        } else {
+          if(!post) {
+            res.json({ success: false, message: 'Post not found!'});
+          } else {
+            userModel.findOne({ _id: req.decoded.userId }, (err, user)=> {
+              if(err) {
+                res.json({ success: false, message: err });
+              } else {
+                if(!user) {
+                  res.json({ success: false, message: 'Could not authenticate user'});
+                } else {
+                  post.comments.push({
+                    comment: req.body.comment.comment,
+                    commentCreatedAt: req.body.comment.commentCreatedAt,
+                    commentatorFirstname: user.firstname,
+                    commentatorLastname: user.lastname,
+                    commentatorAvatar: user.avatar,
+                  });
+                  post.save((err)=> {
+                    if(err) {
+                      res.json({ success: false, message: err });
+                    } else {
+                      res.json({ success: true, message: 'Comment saved!' });
+                    }
+                  });
+                }
+              }
+            });
+          }
+        }
+      });
+    }
+  }
+});
+
+router.post('/reply-comment', (req, res)=> {
+  if(!req.body.replyComment) {
+    res.json({ success: false, message: 'No reply comment provided'});
+  } else {
+    if(!req.body.postId) {
+      res.json({ success: false, message: 'Not found post ID'});
+    } else {
+      if (req.body.commentIndex === undefined) {
+        res.json({ success: false, message: 'Not found comment' });
+      } else {
+        postModel.findOne({ _id: req.body.postId }, (err, post) => {
+          if (err) {
+            res.json({ success: false, message: 'Something went wrong' });
+          } else {
+            if (!post) {
+              res.json({ success: false, message: 'Invalid post ID' });
+            } else {
+              userModel.findOne({ _id: req.decoded.userId }, (err, user) => {
+                if (err) {
+                  res.json({ success: false, message: 'Something went wrong' });
+                } else {
+                  if (!user) {
+                    res.json({ success: false, message: 'Could not authenticate user' });
+                  } else {
+                    const replyComment = {
+                      replyComment: req.body.replyComment.comment,
+                      replyCommentCreatedAt: req.body.replyComment.commentCreatedAt,
+                      replyCommentatorFirstname: user.firstname,
+                      replyCommentatorLastname: user.lastname,
+                      replyCommentatorAvatar: user.avatar,
+                    }                
+                    post.comments[req.body.commentIndex].replyComments.push(replyComment);
+                    post.save((err)=> {
+                      if(err) {
+                        res.json({ success: false, message: err });
+                      } else {
+                        res.json({ success: true, message: 'Relply saved!'});
+                      }
+                    });
+                  }
+                }
+              });
+            }
+          }
+        });
+      }
+    }
   }
 });
 

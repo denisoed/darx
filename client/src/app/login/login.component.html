@@ -1,3 +1,10 @@
+<!-- Block for info message -->
+<div class="for-message">
+    <div class="animated" [ngClass]="messageClass">
+        {{ message }}
+    </div>
+</div>
+
 <section class="login">
     <div class="container">
         <div class="row">
@@ -5,12 +12,6 @@
                 <div class="login-user">
                     <h2>Authorization</h2>
 
-                    <!-- Block for info message -->
-                    <div class="for-message">
-                        <div [ngClass]="messageClass">
-                            {{ message }}
-                        </div>
-                    </div>
 
                     <form [formGroup]="form" (submit)="onLoginSubmit()">
 

@@ -1,3 +1,10 @@
+<!-- Block for info message -->
+<div class="for-message">
+  <div class="animated" [ngClass]="messageClass">
+    {{ message }}
+  </div>
+</div>
+
 <section class="add-post">
   <div class="container">
     <div class="row">
@@ -5,13 +12,6 @@
         <div class="create-new-post">
 
           <h2>Add new post</h2>
-
-          <!-- Block for info message -->
-          <div class="for-message">
-            <div [ngClass]="messageClass">
-              {{ message }}
-            </div>
-          </div>
 
           <form [formGroup]="form" (submit)="createPostSubmit()">
 

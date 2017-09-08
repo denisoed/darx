@@ -1,3 +1,10 @@
+<!-- Block for info message -->
+<div class="for-message">
+    <div class="animated" [ngClass]="messageClass"> 
+        {{ message }}
+    </div>
+</div>
+
 <section class="register">
     <div class="container">
         <div class="row justify-content-lg-center">
@@ -5,12 +12,6 @@
                 <div class="register-user">
                     <h2>Registration</h2>
 
-                    <!-- Block for info message -->
-                    <div class="for-message">
-                        <div [ngClass]="messageClass"> 
-                            {{ message }}
-                        </div>
-                    </div>
 
                     
                     <form [formGroup]="form" (submit)="onRegisterSubmit()">
@@ -74,7 +75,7 @@
                                 <!-- Password input -->
 
                                 <div class="box-input">
-                                    <input type="password" placeholder="Pasword" name="password" formControlName="password">
+                                    <input type="password" placeholder="Password" name="password" formControlName="password">
                                     <ul class="help-block-warning">
                                         <li *ngIf="form.controls.password.errors?.required && form.controls.password.dirty">
                                             <i class="fa fa-exclamation-circle" aria-hidden="true"></i> This field is required

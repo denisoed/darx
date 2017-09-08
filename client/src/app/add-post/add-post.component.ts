@@ -82,6 +82,13 @@ export class AddPostComponent implements OnInit, AfterViewInit, OnDestroy {
     this.imagePost = target.files[0];
   }
 
+  closeMessage(time) {
+    setTimeout(() => {
+      this.message = null;
+      this.messageClass = null;
+    }, time);
+  }
+
   createPostSubmit(){
     const post = {
       foreignKey: this.user._id,
@@ -95,10 +102,11 @@ export class AddPostComponent implements OnInit, AfterViewInit, OnDestroy {
     return this.postService.createPost(post).subscribe(data => {
       if(!data.success) {
         this.message = data.message;
-        this.messageClass = 'post-warning'
+        this.messageClass = 'post-warning bounceInRight';
+        this.closeMessage(3000);
       } else {
         this.message = data.message;
-        this.messageClass = 'post-success'
+        this.messageClass = 'post-success bounceInRight';
         setTimeout(() => {
           this.router.navigate(['/post/' + data.post._id]);
         }, 1000);

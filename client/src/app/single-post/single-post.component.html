@@ -4,7 +4,7 @@
       <div class="col-lg-8">
         <!-- Block for info message -->
         <div class="for-message">
-          <div [ngClass]="messageClass">
+          <div class="animated" [ngClass]="messageClass">
             {{ message }}
           </div>
         </div>
@@ -32,6 +32,123 @@
               </div>
 
             </div>
+
+          </div>
+
+          <!-- Like Dislike and Social icons -->
+          <div class="like-dislike_and_social-icons">
+
+            <div class="social-icons">
+              <a href="#">
+                  <i class="fa fa-facebook"></i>
+              </a>
+              <a href="#">
+                  <i class="fa fa-twitter"></i>
+              </a>
+              <a href="#">
+                  <i class="fa fa-instagram"></i>
+              </a>
+              <a href="#">
+                  <i class="fa fa-google-plus"></i>
+              </a>
+              <a href="#">
+                  <i class="fa fa-youtube"></i>
+              </a>
+              <a href="#">
+                  <i class="fa fa-pinterest"></i>
+              </a>
+            </div>
+
+            <div class="like-dislike">
+              <button class="like" (click)="likePost(post._id)">
+                <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+                {{ post.likes }}
+              </button>
+              <button class="dislike" (click)="dislikePost(post._id)">
+                <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
+                {{ post.dislikes }}
+              </button>
+            </div>
+
+          </div>
+
+          <!-- Post info -->
+          <div class="post-info">
+            <div class="post-info_author">
+              <i class="fa fa-user"></i>
+              <span>{{ post.createdBy }}</span>
+            </div>
+
+            <div class="post-info_comments">
+              <i class="fa fa-comments"></i>
+              <span>{{ post.comments.length }} comments</span>
+            </div> 
+
+            <div class="post-info_category">
+              <i class="fa fa-bars"></i>
+              <span>{{ post.category }}</span>
+            </div>
+          </div>
+
+          <!-- Comments -->
+          <div class="comments">
+            <h2>{{ post.comments.length }} Responses so far</h2>
+
+            <div class="list-comments">
+
+              <!-- Comment -->
+              <div class="the-comment" *ngFor="let comment of post.comments; let commentIndex ='index'">
+
+                <!-- Main comment -->
+                <div class="main-comment">
+                  <div class="the-comment_info">
+                    <h4>{{ comment.commentatorFirstname }} {{ comment.commentatorLastname }}</h4>
+                    <span>{{ comment.month }} {{ comment.commentCreatedAt | date: 'dd' }}, {{ comment.commentCreatedAt | date: 'yyyy' }} at {{ comment.commentCreatedAt | date: 'hh' }}:{{ comment.commentCreatedAt | date: 'mm' }}:{{ comment.commentCreatedAt | date: 'ss' }}</span>
+                  </div>
+
+                  <div class="the-comment_body">
+                    <div class="image-author" [ngStyle]="{'background-image': 'url(../../assets/img/avatars/' + comment.commentatorAvatar + ')'}"></div>
+                    <div class="the-comment_text">
+                      {{ comment.comment }}
+                    </div>
+                  </div>
+                  
+                  <button (click)="toggleTextareaReplyComment(commentIndex)">Reply</button>
+                </div>
+                
+                <!-- Reply comment -->
+                <div class="reply-comment" *ngFor="let reply of post.comments[commentIndex].replyComments">
+                  <div class="the-comment_info">
+                    <h4>{{ reply.replyCommentatorFirstname }} {{ reply.replyCommentatorLastname }}</h4>
+                    <span>{{ reply.replyMonth }} {{ reply.replyCommentCreatedAt | date: 'dd' }}, {{ reply.replyCommentCreatedAt | date: 'yyyy' }} at {{ reply.replyCommentCreatedAt | date: 'hh' }}:{{ reply.replyCommentCreatedAt | date: 'mm' }}:{{ reply.replyCommentCreatedAt | date: 'ss' }}</span>
+                  </div>
+
+                  <div class="the-comment_body">
+                    <div class="image-author" [ngStyle]="{'background-image': 'url(../../assets/img/avatars/' + reply.replyCommentatorAvatar + ')'}"></div>
+                    <div class="the-comment_text">
+                      {{ reply.replyComment }}
+                    </div>
+                  </div>  
+                </div>
+
+                <form [formGroup]="formReply" class="closeReply">
+                  <textarea name="text-comment" placeholder="Reply comment" formControlName="replyComment"></textarea>
+
+                  <button type="submit" (click)="replyComment( post._id, commentIndex )">Add reply</button>
+                </form>
+
+              </div>
+              <!-- Comment end -->
+
+            </div>
+
+            <h2>Leave a comment</h2>
+
+            <form [formGroup]="form">
+              <textarea name="text-comment" cols="30" rows="10" placeholder="Comment" formControlName="comment"></textarea>
+
+              <button type="submit" (click)="postNewComment( post._id )">Add comment</button>
+            </form>
 
           </div>
         </div>

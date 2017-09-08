@@ -358,6 +358,14 @@ export class RegisterComponent implements OnInit {
     let target = avatar.target;
     this.avatar = target.files[0]
   }
+
+  closeMessage(time) {
+    setTimeout(() => {
+      this.message = null;
+      this.messageClass = null;
+    }, time);
+  }
+
   onRegisterSubmit() {
 
     const user = {
@@ -382,10 +390,11 @@ export class RegisterComponent implements OnInit {
 
     this.authService.registerUser(user).subscribe(data => {
       if(!data.success){
-        this.messageClass = 'register-warning';
+        this.messageClass = 'register-warning bounceInRight';
         this.message = data.message;
+        this.closeMessage(3000);
       } else{
-        this.messageClass = 'register-success';
+        this.messageClass = 'register-success bounceInRight';
         this.message = data.message;
         setTimeout(() => {
           this.router.navigate(['/login']);

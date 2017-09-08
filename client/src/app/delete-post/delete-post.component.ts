@@ -20,17 +20,25 @@ export class DeletePostComponent implements OnInit {
     private router: Router
   ) { }
 
+  closeMessage(time) {
+    setTimeout(() => {
+      this.message = null;
+      this.messageClass = null;
+    }, time);
+  }
+
   deletePost() {
     this.postService.deletePost(this.currentUrl.id).subscribe(data => {
       if(!data.success) {
         this.message = data.message;
-        this.messageClass = 'delete-post-warning';
+        this.messageClass = 'delete-post-warning bounceInRight';
+        this.closeMessage(3000);
       } else {
         this.message = data.message;
-        this.messageClass = 'delete-post-success';
+        this.messageClass = 'delete-post-success bounceInRight';
         setTimeout(()=> {
           this.router.navigate(['/profile']);
-        }, 500);
+        }, 1000);
       }
     });
   }

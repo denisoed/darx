@@ -66,15 +66,24 @@ export class EditPostComponent implements OnInit, AfterViewInit, OnDestroy {
     private activatedRoute: ActivatedRoute
   ) { }
 
+  closeMessage(time) {
+    setTimeout(() => {
+      this.message = null;
+      this.messageClass = null;
+    }, time);
+  }
+
   editPostSubmit() {
     console.log(this.post);
     this.postService.editPost(this.post).subscribe(data => {
       if (!data.success) {
-        this.messageClass = 'edit-post-warning';
+        this.messageClass = 'edit-post-warning bounceInRight';
         this.message = data.message;
+        this.closeMessage(3000);
       } else {
-        this.messageClass = 'edit-post-success';
+        this.messageClass = 'edit-post-success bounceInRight';
         this.message = data.message;
+        this.closeMessage(3000);
       }
     });
   }
@@ -92,8 +101,9 @@ export class EditPostComponent implements OnInit, AfterViewInit, OnDestroy {
     this.currentUrl = this.activatedRoute.snapshot.params;
     this.postService.getSinglePost(this.currentUrl.id).subscribe(data => {
       if (!data.success) {
-        this.messageClass = 'edit-post-warning'; // Set bootstrap error class
+        this.messageClass = 'edit-post-warning bounceInRight'; // Set bootstrap error class
         this.message = data.message; // Set error message
+        this.closeMessage(3000);
       } else {
         this.post = data.post;
         this.post.category = data.post.category; // Save blog object for use in HTML

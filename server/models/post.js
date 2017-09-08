@@ -82,7 +82,19 @@ const PostSchema = new Schema({
   dislikedBy: { type: Array},
   comments: [{
       comment: { type: String, validate: commentValidators },
-      commentator: { type: String } 
+      commentCreatedAt: { type: Date },
+      month: { type: String, default: month() },
+      commentatorFirstname: { type: String }, 
+      commentatorLastname: { type: String },
+      commentatorAvatar: { type: String },
+      replyComments: [{
+        replyComment: { type: String, validate: commentValidators },
+        replyCommentCreatedAt: { type: Date },
+        replyMonth: { type: String, default: month() },
+        replyCommentatorFirstname: { type: String },
+        replyCommentatorLastname: { type: String },
+        replyCommentatorAvatar: { type: String }
+      }] 
   }]
 });
 
