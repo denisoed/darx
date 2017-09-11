@@ -11,16 +11,39 @@
                         <a href="">Have questions?</a>
                     </div>
 
+                    <!-- Search box -->
+                    <div class="search-box" *ngIf="authService.loggedIn()">
+                        <button class="search-button" (click)="toolgeSearchBox()">
+                            Search
+                            <i class="fa fa-search"></i>
+                        </button>
+
+                        <div class="search-modal hideModal">
+                            <i class="fa fa-close" (click)="toolgeSearchBox()"></i>
+
+                            <form>
+                                <input type="search" placeholder="Search..." (keyup)="onKeyup(searchText.value)" #searchText>
+                                <i class="fa fa-search"></i>
+                            </form>
+
+                            <ul *ngIf="results">
+                                <li *ngFor="let post of results">
+                                    <button (click)="toolgeSearchBox()" [routerLink]="['/post/', post._id]">{{ post.title }}</button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
                     <a *ngIf="!authService.loggedIn()" routerLink="/register" routerLinkActive="active" class="reg-link">Register</a>
                     <a *ngIf="!authService.loggedIn()" routerLink="/login" routerLinkActive="active">Login</a>
 
                     <!-- Account menu -->
                     <div class="account-menu" *ngIf="authService.loggedIn()">
-                        <div class="account-menu_link">
-                            <span class="account-menu_username">Denis</span>
+                        <div class="account-menu_link" (click)="show = !show">
+                            <span *ngIf="user" class="account-menu_username">{{ user.firstname }} {{ user.lastname }}</span>
                             <i class="fa fa-user"></i>
                         </div>  
-                        <div class="account-menu_dropdown">
+                        <div class="account-menu_dropdown" *ngIf="show" [@enterAnimation]>
                             <a  routerLink="/profile" routerLinkActive="active">Profile</a>
                             <a (click)="onLogoutClick()">Logout</a>
                         </div>

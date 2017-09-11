@@ -1,7 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions } from '@angular/http';
 import { AuthService } from "./auth.service";
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/distinctUntilChanged';
+import 'rxjs/add/operator/switchMap';
+
 
 @Injectable()
 export class PostService {
@@ -13,10 +18,10 @@ export class PostService {
     private http: Http,
     private authService: AuthService
   ) { }
-
-  createAuthenticationHeaders() {
-    this.authService.loadToken(); // Get token so it can be attached to headers
-    // Headers configuration options
+    
+    createAuthenticationHeaders() {
+      this.authService.loadToken(); // Get token so it can be attached to headers
+      // Headers configuration options
     this.options = new RequestOptions({
       headers: new Headers({
         'Accept': 'application/json', // Format set to JSON
@@ -25,6 +30,19 @@ export class PostService {
     });
   }
 
+  // Search post
+  search(terms: Observable<string>) {
+    return terms.debounceTime(300)
+      .distinctUntilChanged()
+      .switchMap( term => this.searchPost(term) );
+  }
+
+  searchPost(term) {
+    this.createAuthenticationHeaders();
+    return this.http.get(this.domain + 'post/search-posts?title=' + term, this.options).map(res => res.json());
+  }
+
+  // Create new post
   createPost(post) {
     this.createAuthenticationHeaders(); 
 

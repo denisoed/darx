@@ -491,4 +491,29 @@ router.post('/reply-comment', (req, res)=> {
   }
 });
 
+
+router.get('/search-posts', (req, res)=> {
+  postModel.find({}, (err, posts)=> {
+    if(err) {
+      res.json({ err: err });
+    } else {
+      let result = [];
+      let matchResult = [];
+      let query = req.query.title
+      var regexp = new RegExp("\\b" + query + "\\w*\\b", "gi");
+
+      for (let i = 0; i < posts.length; i++) {
+        matchResult.push(posts[i].title.match(regexp));
+      }
+      
+      for (let i = 0; i < matchResult.length; i++) {
+        if ( matchResult[i] !== null ) {
+          result.push(posts[i]);
+        }
+      }
+      res.json({ posts: result });
+    }
+  })
+});
+
 module.exports = router;

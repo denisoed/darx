@@ -68,7 +68,7 @@ export class LoginComponent implements OnInit {
       }
     })
   }
-
+  
   validateEmail(controls) {
     const regExp = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
     if (regExp.test(controls.value)) {
@@ -77,11 +77,12 @@ export class LoginComponent implements OnInit {
       return { 'validateEmail': true }
     }
   }
-
+  
   ngOnInit() {
     if(this.authGuard.redirectUrl){
-      this.messageClass = 'login-warning';
+      this.messageClass = 'login-warning bounceInRight';
       this.message = 'You must bo logged in to view that page.'
+      this.closeMessage(3000);
       this.previousUrl = this.authGuard.redirectUrl;
       this.authGuard.redirectUrl = undefined;
     }
